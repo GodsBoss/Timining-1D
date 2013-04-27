@@ -1,3 +1,4 @@
-Entry for LD #26
+Timining 1D
+===========
 
-Theme is "Minimalism".
+A minimalistic MineCraft-inspired (read: shamelessly stolen) 1D game (with a 2D view).
