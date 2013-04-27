@@ -35,6 +35,11 @@ class SpriteMap
 			y: 0
 			w: 16
 			h: 16
+		'dirt-flat':
+			x: 112
+			y: 0
+			w: 16
+			h: 16
 		rock:
 			x:0
 			y: 16
@@ -57,6 +62,11 @@ class SpriteMap
 			h: 16
 		'rock-diamond':
 			x: 64
+			y: 16
+			w: 16
+			h: 16
+		'rock-flat':
+			x: 80
 			y: 16
 			w: 16
 			h: 16
