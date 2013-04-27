@@ -105,6 +105,11 @@ class SpriteMap
 			y: 32
 			w: 8
 			h: 8
+		'item-sapling':
+			x: 40
+			y: 32
+			w: 8
+			h: 8
 		'item-apple':
 			x: 0
 			y: 40
