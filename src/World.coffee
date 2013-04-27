@@ -15,13 +15,13 @@ class World
 			tree.grow time
 		@playerPicksItems()
 
-	createItem:(type, position)->
-		item = new Item type, position
+	createItem:(type, position, random = true)->
+		item = new Item type, position + (if random then Math.random() - 0.5 else 0)
 		@items.push item
 		console.log item
 
 	createTree:(position)->
-		@trees[position] = new Tree position
+		@trees[position] = new Tree @, position
 
 	createBush:(position)->
 		@bushes[position] = new Bush @, position
