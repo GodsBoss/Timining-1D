@@ -210,7 +210,126 @@ class SpriteMap
 			y: 96
 			w: 16
 			h: 16
-
+		'zombie-right_0':
+			x: 64
+			y: 80
+			w: 16
+			h: 16
+		'zombie-right_1':
+			x: 64
+			y: 96
+			w: 16
+			h: 16
+		'zombie-left_0':
+			x: 80
+			y: 80
+			w: 16
+			h: 16
+		'zombie-left_1':
+			x: 80
+			y: 96
+			w: 16
+			h: 16
+		'axe-wood-left':
+			x: 96
+			y: 80
+			w: 16
+			h: 16
+		'axe-wood-right':
+			x: 96
+			y: 96
+			w: 16
+			h: 16
+		'shovel-wood-left':
+			x: 112
+			y: 80
+			w: 16
+			h: 16
+		'shovel-wood-right':
+			x: 112
+			y: 96
+			w: 16
+			h: 16
+		'pickaxe-wood-left':
+			x: 128
+			y: 80
+			w: 16
+			h: 16
+		'pickaxe-wood-right':
+			x: 128
+			y: 96
+			w: 16
+			h: 16
+		'axe-stone-left':
+			x: 144
+			y: 80
+			w: 16
+			h: 16
+		'axe-stone-right':
+			x: 144
+			y: 96
+			w: 16
+			h: 16
+		'shovel-stone-left':
+			x: 160
+			y: 80
+			w: 16
+			h: 16
+		'shovel-stone-right':
+			x: 160
+			y: 96
+			w: 16
+			h: 16
+		'pickaxe-stone-left':
+			x: 176
+			y: 80
+			w: 16
+			h: 16
+		'pickaxe-stone-right':
+			x: 176
+			y: 96
+			w: 16
+			h: 16
+		'axe-iron-left':
+			x: 192
+			y: 80
+			w: 16
+			h: 16
+		'axe-iron-right':
+			x: 192
+			y: 96
+			w: 16
+			h: 16
+		'shovel-iron-left':
+			x: 208
+			y: 80
+			w: 16
+			h: 16
+		'shovel-iron-right':
+			x: 208
+			y: 96
+			w: 16
+			h: 16
+		'pickaxe-iron-left':
+			x: 224
+			y: 80
+			w: 16
+			h: 16
+		'pickaxe-iron-right':
+			x: 224
+			y: 96
+			w: 16
+			h: 16
+		'hit-effect-left':
+			x: 240
+			y: 80
+			w: 16
+			h: 16
+		'hit-effect-right':
+			x: 240
+			y: 96
+			w: 16
+			h: 16
 
 	getSpriteInfo:(name)->
 		SpriteMap.sprites[name]
