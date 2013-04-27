@@ -40,26 +40,76 @@ class SpriteMap
 			y: 16
 			w: 16
 			h: 16
-		coal:
+		'rock-coal':
 			x: 16
 			y: 16
 			w: 16
 			h: 16
-		'iron-ore':
+		'rock-iron-ore':
 			x: 32
 			y: 16
 			w: 16
 			h: 16
-		'gold-ore':
+		'rock-gold-ore':
 			x: 48
 			y: 16
 			w: 16
 			h: 16
-		diamond:
+		'rock-diamond':
 			x: 64
 			y: 16
 			w: 16
 			h: 16
+		'item-rock':
+			x: 0
+			y: 32
+			w: 8
+			h: 8
+		'item-coal':
+			x: 8
+			y: 32
+			w: 8
+			h: 8
+		'item-gold-ore':
+			x: 16
+			y: 32
+			w: 8
+			h: 8
+		'item-paper':
+			x: 24
+			y: 32
+			w: 8
+			h: 8
+		'item-gold':
+			x: 32
+			y: 32
+			w: 8
+			h: 8
+		'item-apple':
+			x: 0
+			y: 40
+			w: 8
+			h: 8
+		'item-iron-ore':
+			x: 8
+			y: 40
+			w: 8
+			h: 8
+		'item-diamond':
+			x: 16
+			y: 40
+			w: 8
+			h: 8
+		'item-wood':
+			x: 24
+			y: 40
+			w: 8
+			h: 8
+		'item-iron':
+			x: 32
+			y: 40
+			w: 8
+			h: 8
 		heart4:
 			x: 0
 			y: 48
