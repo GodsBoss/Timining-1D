@@ -8,7 +8,7 @@ class MenuRenderer
 		@time = 0
 
 	getButtonSize:()->
-		64 * @globalScalingFactor
+		@spriteSheet.getNamedSprite('menu-empty').width * @globalScalingFactor
 
 	drawStartMenu:()->
 		@drawSingleButtonScreen 'menu-start'
@@ -22,20 +22,20 @@ class MenuRenderer
 	drawSingleButtonScreen:(spriteName)->
 		@clear()
 		center = @getCenter()
-		buttonSize = @getButtonSize()
-		@context.drawImage @spriteSheet.getNamedSprite(spriteName), center.x - buttonSize/2, center.y - buttonSize/2
+		sprite = @spriteSheet.getNamedSprite(spriteName)
+		@context.drawImage sprite, center.x - sprite.width/2, center.y - sprite.height/2
 
 	drawChooseCharacter:()->
 		@clear()
 		center = @getCenter()
-		oneSixth = Math.floor @context.canvas.width/6
-		buttonSize = @getButtonSize()
-		@context.drawImage @spriteSheet.getNamedSprite('menu-empty'), center.x - buttonSize/2 - oneSixth, center.y - buttonSize/2
-		@context.drawImage @spriteSheet.getNamedSprite('menu-empty'), center.x - buttonSize/2 + oneSixth, center.y - buttonSize/2
+		sprite = @spriteSheet.getNamedSprite('menu-empty')
+		margin = Math.floor (@context.canvas.width - 2 * sprite.width) / 3
+		@context.drawImage sprite, margin, center.y - sprite.height/2
+		@context.drawImage sprite, @context.canvas.width - sprite.width - margin, center.y - sprite.height/2
 		charOne = @charOneAnimation.getImage @time
 		charTwo = @charTwoAnimation.getImage @time + 0.125
-		@context.drawImage charOne, center.x - oneSixth - charOne.width/2, center.y - charOne.height/2
-		@context.drawImage charTwo, center.x + oneSixth - charTwo.width/2, center.y - charTwo.height/2
+		@context.drawImage charOne, margin + sprite.width/2 - charOne.width/2, center.y - charOne.height/2
+		@context.drawImage charTwo, @context.canvas.width - sprite.width/2 - margin - charTwo.width/2, center.y - charTwo.height/2
 
 	getCenter:()->
 		x: @context.canvas.width / 2
@@ -65,8 +65,14 @@ class MenuRenderer
 		@isInsideCharacterButton x, y, MenuRenderer.RIGHT_CHARACTER_BUTTON
 
 	isInsideCharacterButton:(x, y, isLeft)->
+		sprite = @spriteSheet.getNamedSprite('menu-empty')
+		margin = Math.floor (@context.canvas.width - 2 * sprite.width) / 3
 		buttonCenter =
-			x: @context.canvas.width * if isLeft then 1/3 else 2/3
+			x:
+				if isLeft
+					margin + sprite.width/2
+				else
+					@context.canvas.width - margin - sprite.width/2
 			y: @context.canvas.height / 2
 		buttonSize = @getButtonSize()
 		Math.abs(buttonCenter.x - x) <= buttonSize/2 and Math.abs(buttonCenter.y - y) <= buttonSize/2

@@ -8,6 +8,7 @@ class Game
 	constructor:(@menuRenderer, @worldRenderer, @fps)->
 		@state = Game.STATE_START_MENU
 		@time = 0
+		@keysDown = {}
 
 	start:()->
 		@loop()
@@ -15,6 +16,11 @@ class Game
 	loop:()=>
 		setTimeout @loop, 1000/@fps
 		if @state is Game.STATE_GAME_RUNNING
+			@world.player.dontBeWalking()
+			if @keysDown.a and !@keysDown.d
+				@world.player.beWalkingLeft()
+			if !@keysDown.a and @keysDown.d
+				@world.player.beWalkingRight()
 			@world.tick 1/@fps
 		@menuRenderer.pass 1/@fps
 		@draw()
@@ -49,8 +55,8 @@ class Game
 			@state = Game.STATE_GAME_RUNNING
 			@mouseMove event
 			return
-		if @state is Game.STATE_CHOOSE_CHARACTER and (@menuRenderer.isInsideCharacterOneButton pos.x, pos.y or @menuRenderer.isInsideCharacterTwoButton pos.x, pos.y)
-			@world = new World()
+		if @state is Game.STATE_CHOOSE_CHARACTER and (@menuRenderer.isInsideCharacterOneButton(pos.x, pos.y) or @menuRenderer.isInsideCharacterTwoButton pos.x, pos.y)
+			@initWorld if @menuRenderer.isInsideCharacterOneButton(pos.x, pos.y) then 'a' else 'b'
 			@state = Game.STATE_GAME_RUNNING
 			@mouseMove event
 			return
@@ -60,10 +66,24 @@ class Game
 		y: event.clientY - event.target.offsetTop
 
 	keyDown:(event)=>
-		console.log event
+		if event.keyCode == 65 # 'a'
+			@keysDown.a = true
+		if event.keyCode == 68 # 'd'
+			@keysDown.d = true
+		if event.keyCode == 87 # 'w'
+			@keysDown.w = true
+		if event.keyCode == 83 # 's'
+			@keysDown.s = true
 
 	keyUp:(event)=>
-		console.log event
+		if event.keyCode == 65
+			@keysDown.a = false
+		if event.keyCode == 68
+			@keysDown.d = false
+		if event.keyCode == 87
+			@keysDown.w = false
+		if event.keyCode == 83
+			@keysDown.s = false
 
 	draw:()->
 		if @state is Game.STATE_START_MENU
@@ -76,3 +96,8 @@ class Game
 			@menuRenderer.drawPausedGame()
 		if @state is Game.STATE_DEAD
 			@menuRenderer.drawDead()
+
+	initWorld:(playerType)->
+		player = new Player playerType
+		level = new Level
+		@world = new World player, level

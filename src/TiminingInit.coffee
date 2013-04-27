@@ -15,7 +15,7 @@ class TiminingInit
 		context = canvas.getContext '2d'
 		sprites = {}
 		scaling = new ImageScaling @window.document
-		scalingSpriteSheet = new ScalingSpriteSheet spriteSheet, scaling, 2
+		scalingSpriteSheet = new ScalingSpriteSheet spriteSheet, scaling, 3
 		menuRenderer = new MenuRenderer context, scalingSpriteSheet, 1
 		worldRenderer = new WorldRenderer context, scalingSpriteSheet
 		game = new Game menuRenderer, worldRenderer, 40
