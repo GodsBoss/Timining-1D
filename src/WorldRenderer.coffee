@@ -18,8 +18,8 @@ class WorldRenderer
 		@context.beginPath()
 		@context.moveTo 0, 60
 		@context.lineTo @context.canvas.width, 60
-		@context.moveTo 0, 60 + 3*16
-		@context.lineTo @context.canvas.width, 60 + 3*16
+		@context.moveTo 0, 62 + 3*16
+		@context.lineTo @context.canvas.width, 62 + 3*16
 		@context.stroke()
 		@context.closePath()
 
