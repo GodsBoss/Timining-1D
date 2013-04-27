@@ -170,6 +170,47 @@ class SpriteMap
 			y: 64
 			w: 16
 			h: 16
+		'player-a-right_0':
+			x: 0
+			y: 80
+			w: 16
+			h: 16
+		'player-a-right_1':
+			x: 0
+			y: 96
+			w: 16
+			h: 16
+		'player-a-left_0':
+			x: 16
+			y: 80
+			w: 16
+			h: 16
+		'player-a-left_1':
+			x: 16
+			y: 96
+			w: 16
+			h: 16
+		'player-b-right_0':
+			x: 32
+			y: 80
+			w: 16
+			h: 16
+		'player-b-right_1':
+			x: 32
+			y: 96
+			w: 16
+			h: 16
+		'player-b-left_0':
+			x: 48
+			y: 80
+			w: 16
+			h: 16
+		'player-b-left_1':
+			x: 48
+			y: 96
+			w: 16
+			h: 16
+
 
 	getSpriteInfo:(name)->
 		SpriteMap.sprites[name]
