@@ -11,27 +11,24 @@ class Level
 		@rightPiece =
 			position: 0
 			type: 'grass'
-		@generate -1, 'grass'
-		@generate 1, 'grass'
+		@generate -1
+		@generate 1
 
 	getPiece:(position)->
 		if !@pieces[position]?
 			@generate position
 		@pieces[position]
 
-	generate:(position, forceType)->
+	generate:(position)->
 		step = if position > 0 then 1 else -1
 		lastDefiningPiece = if step > 0 then @rightPiece else @leftPiece
-		if forceType?
-			type = forceType
+		x = Math.random()
+		if x < 1/3
+			type = 'grass'
+		else if x < 2/3
+			type = 'dirt'
 		else
-			x = Math.random()
-			if x < 1/3
-				type = 'grass'
-			else if x < 2/3
-				type = 'dirt'
-			else
-				type = 'rock'
+			type = 'rock'
 		for i in [1..4]
 			piece =
 				type: if i <= 2 then lastDefiningPiece.type else type
