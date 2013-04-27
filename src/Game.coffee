@@ -5,14 +5,17 @@ class Game
 	@STATE_GAME_PAUSE = 4
 	@STATE_DEAD = 5
 
-	constructor:(@menuRenderer, @fps)->
+	constructor:(@menuRenderer, @worldRenderer, @fps)->
 		@state = Game.STATE_START_MENU
+		@time = 0
 
 	start:()->
 		@loop()
 
 	loop:()=>
 		setTimeout @loop, 1000/@fps
+		if @state is Game.STATE_GAME_RUNNING
+			@world.tick 1/@fps
 		@menuRenderer.pass 1/@fps
 		@draw()
 
@@ -42,6 +45,15 @@ class Game
 			@state = Game.STATE_START_MENU
 			@mouseMove event
 			return
+		if @state is Game.STATE_GAME_PAUSE and @menuRenderer.isInsidePauseButton pos.x, pos.y
+			@state = Game.STATE_GAME_RUNNING
+			@mouseMove event
+			return
+		if @state is Game.STATE_CHOOSE_CHARACTER and (@menuRenderer.isInsideCharacterOneButton pos.x, pos.y or @menuRenderer.isInsideCharacterTwoButton pos.x, pos.y)
+			@world = new World()
+			@state = Game.STATE_GAME_RUNNING
+			@mouseMove event
+			return
 
 	mouseEventCoordinates:(event)->
 		x: event.clientX - event.target.offsetLeft
@@ -59,10 +71,8 @@ class Game
 		if @state is Game.STATE_CHOOSE_CHARACTER
 			@menuRenderer.drawChooseCharacter()
 		if @state is Game.STATE_GAME_RUNNING
-			@drawRunningGame()
+			@worldRenderer.draw @world
 		if @state is Game.STATE_GAME_PAUSE
 			@menuRenderer.drawPausedGame()
 		if @state is Game.STATE_DEAD
 			@menuRenderer.drawDead()
-
-	drawRunningGame:()->

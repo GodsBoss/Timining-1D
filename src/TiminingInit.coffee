@@ -17,7 +17,8 @@ class TiminingInit
 		scaling = new ImageScaling @window.document
 		scalingSpriteSheet = new ScalingSpriteSheet spriteSheet, scaling, 2
 		menuRenderer = new MenuRenderer context, scalingSpriteSheet, 1
-		game = new Game menuRenderer, 40
+		worldRenderer = new WorldRenderer context, scalingSpriteSheet
+		game = new Game menuRenderer, worldRenderer, 40
 		canvas.addEventListener 'mousemove', game.mouseMove, false
 		canvas.addEventListener 'mouseleave', game.mouseLeave, false
 		canvas.addEventListener 'click', game.mouseClick, false
