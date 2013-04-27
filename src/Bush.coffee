@@ -2,7 +2,7 @@ class Bush
 	@MAX_APPLES = 3
 	@APPLES_PER_SECOND = 1 / 60 # 1 Apple per minute
 
-	constructor:()->
+	constructor:(@world, @position)->
 		@apples = Bush.MAX_APPLES
 
 	hasApple:()->
@@ -14,9 +14,7 @@ class Bush
 	loseApple:()->
 		if @hasApple()
 			@apples--
-			true
-		else
-			false
+			@world.createItem 'apple', @position
 
 	grow:(time)->
 		@apples = Math.min Bush.MAX_APPLES, @apples + time * Bush.APPLES_PER_SECOND
