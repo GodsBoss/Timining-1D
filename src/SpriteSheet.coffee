@@ -18,7 +18,6 @@ class SpriteSheet
 		if not fresh and @spriteCache[name]?
 			@spriteCache[name]
 		else
-			console.log "Fresh sprite " + name + "!"
 			s = @spriteMap.getSpriteInfo name
 			sprite = @getSprite s.x, s.y, s.w, s.h
 			@spriteCache[name] = sprite
