@@ -18,8 +18,11 @@ class SpriteSheet
 		if not fresh and @spriteCache[name]?
 			@spriteCache[name]
 		else
+			console.log "Fresh sprite " + name + "!"
 			s = @spriteMap.getSpriteInfo name
-			@getSprite s.x, s.y, s.w, s.h
+			sprite = @getSprite s.x, s.y, s.w, s.h
+			@spriteCache[name] = sprite
+			sprite
 
 	getAnimationSprites:(name, number, fresh = no)->
 		(@getNamedSprite(name+'_'+n, fresh) for n in [0..number-1])
