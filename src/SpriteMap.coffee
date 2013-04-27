@@ -50,6 +50,16 @@ class SpriteMap
 			y: 0
 			w: 16
 			h: 16
+		'dirt-border-left':
+			x: 160
+			y: 0
+			w: 16
+			h: 16
+		'dirt-border-right':
+			x: 176
+			y: 0
+			w: 16
+			h: 16
 		rock:
 			x:0
 			y: 16
@@ -77,6 +87,11 @@ class SpriteMap
 			h: 16
 		'rock-flat':
 			x: 80
+			y: 16
+			w: 16
+			h: 16
+		'rock-border-left':
+			x: 96
 			y: 16
 			w: 16
 			h: 16
