@@ -67,3 +67,9 @@ class Player
 		else
 			@recover = Player.HIT_RECOVER_TIME
 			true
+
+	isHitting:()->
+		@recover > Player.HIT_RECOVER_TIME - 0.1
+
+	getHitPoint:()->
+		@position + Player.ARM_LENGTH * (if @direction == Player.LEFT then -1 else 1)

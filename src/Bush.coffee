@@ -14,7 +14,7 @@ class Bush
 	loseApple:()->
 		if @hasApple()
 			@apples--
-			@world.createItem 'apple', @position
+			@world.createItem 'apple', @position + Math.random() - 0.5
 
 	grow:(time)->
 		@apples = Math.min Bush.MAX_APPLES, @apples + time * Bush.APPLES_PER_SECOND

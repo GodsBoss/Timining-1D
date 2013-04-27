@@ -15,12 +15,19 @@ class World
 			tree.grow time
 
 	createItem:(type, position)->
+		item = new Item type, position
+		@items.push item
+		console.log item
 
 	createTree:(position)->
 		@trees[position] = new Tree position
 
 	createBush:(position)->
-		@bushes[position] = new Bush position
+		@bushes[position] = new Bush @, position
 
 	playerHit:()->
-		console.log 'Hit!'
+		position = Math.round @player.getHitPoint()
+		piece = @level.getPiece position
+		if piece.special?
+			if piece.special.type == 'bush'
+				piece.special.bush.loseApple()

@@ -5,6 +5,7 @@ class WorldRenderer
 		@clear()
 		@drawLandscape()
 		@drawPlayer()
+		@drawItems()
 		@drawHealth()
 		@drawSaturation()
 
@@ -43,11 +44,20 @@ class WorldRenderer
 			@initPlayerAnimations()
 		image = @playerAnimations[@world.player.direction].getImage(if @world.player.isWalking() then @world.time else 0)
 		@context.drawImage image, @context.canvas.width / 2 - image.width / 2, 61
+		if @world.player.isHitting()
+			@context.drawImage @spriteSheet.getNamedSprite('hit-effect-' + @world.player.direction), @context.canvas.width / 2 - image.width / 2, 61
 
 	initPlayerAnimations:()->
 		@playerAnimations =
 			left:  new Animation @spriteSheet.getAnimationSprites('player-' + @world.player.type + '-left',  2), 0.25
 			right: new Animation @spriteSheet.getAnimationSprites('player-' + @world.player.type + '-right', 2), 0.25
+
+	drawItems:()->
+		for item in @world.items
+			diff = item.position - @world.player.position
+			if Math.abs(diff) < 5
+				x = @context.canvas.width/2 + diff * 16 * 3 - 8 * 3 / 2
+				@context.drawImage @spriteSheet.getNamedSprite('item-'+item.type), x, 60 + 3*16 - 4*3 - 8*3/2
 
 	drawHealth:()->
 		fullHearts = Math.floor 10 * @world.player.health / Player.MAX_HEALTH
