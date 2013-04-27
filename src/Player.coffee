@@ -26,13 +26,13 @@ class Player
 		@saturation += food.saturation
 
 	# time is in seconds
-	tick:(time)->
+	tick:(time, level)->
 		if @health < Player.MAX_HEALTH and @saturation > 0
 			@heal(time)
-		@walk time
+		@walk time, level
 		@recover = Math.max 0, @recover - time
 
-	walk:(time)->
+	walk:(time, level)->
 		if @walking
 			f = if @direction is Player.LEFT then -1 else 1
 			@speed += f * time
@@ -40,6 +40,10 @@ class Player
 				@speed = f * Player.MAX_SPEED
 		else
 			@speed *= Math.pow 0.1, time
+		newPosition = @position + @speed * time
+		pieceType = level.getPiece(Math.round newPosition).type
+		if pieceType == 'dirt' or pieceType == 'rock'
+			@speed = 0
 		@position += @speed * time
 
 	heal:(time)->

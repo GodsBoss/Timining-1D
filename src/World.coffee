@@ -8,7 +8,7 @@ class World
 
 	tick:(time)->
 		@time += time
-		@player.tick time
+		@player.tick time, @level
 		for position, bush of @bushes
 			bush.grow time
 		for position, tree of @trees
