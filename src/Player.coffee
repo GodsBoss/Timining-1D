@@ -17,6 +17,7 @@ class Player
 		@speed = 0
 		@walking = false
 		@recover = 0
+		@bag = {}
 
 	canEat:()->
 		@saturation < Player.MAX_SATURATION
@@ -73,3 +74,8 @@ class Player
 
 	getHitPoint:()->
 		@position + Player.ARM_LENGTH * (if @direction == Player.LEFT then -1 else 1)
+
+	gatherItem:(item)->
+		if !@bag[item.type]?
+			@bag[item.type] = 0
+		@bag[item.type]++
