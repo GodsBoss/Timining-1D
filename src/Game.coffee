@@ -6,7 +6,7 @@ class Game
 	@STATE_DEAD = 5
 
 	constructor:(@menuRenderer, @fps)->
-		@state = Game.STATE_DEAD
+		@state = Game.STATE_START_MENU
 
 	start:()->
 		@loop()
