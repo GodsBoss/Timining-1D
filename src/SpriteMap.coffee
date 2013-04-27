@@ -100,6 +100,46 @@ class SpriteMap
 			y: 56
 			w: 8
 			h: 8
+		clock0:
+			x: 32
+			y: 48
+			w: 8
+			h: 8
+		clock1:
+			x: 32
+			y: 56
+			w: 8
+			h: 8
+		clock2:
+			x: 40
+			y: 48
+			w: 8
+			h: 8
+		clock3:
+			x: 40
+			y: 56
+			w: 8
+			h: 8
+		clock4:
+			x: 48
+			y: 48
+			w: 8
+			h: 8
+		clock5:
+			x: 48
+			y: 56
+			w: 8
+			h: 8
+		clock6:
+			x: 56
+			y: 48
+			w: 8
+			h: 8
+		clock7:
+			x: 56
+			y: 56
+			w: 8
+			h: 8
 		workbench:
 			x: 0
 			y: 64
