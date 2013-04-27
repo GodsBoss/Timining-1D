@@ -98,7 +98,7 @@ class Recipe
 					'gold-ore': 1
 				result:
 					type: @ITEM
-					value: gold
+					value: 'gold'
 				time: 45
 
 	checkRecipeIngredients:(recipe, bag)->
