@@ -620,6 +620,16 @@ class SpriteMap
 			y: 120
 			w: 8
 			h: 8
+		'fog-left':
+			x: 0
+			y: 128
+			w: 16
+			h: 16
+		'fog-right':
+			x: 16
+			y: 128
+			w: 16
+			h: 16
 
 	getSpriteInfo:(name)->
 		SpriteMap.sprites[name]
