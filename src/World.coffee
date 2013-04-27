@@ -18,7 +18,6 @@ class World
 	createItem:(type, position, random = true)->
 		item = new Item type, position + (if random then Math.random() - 0.5 else 0)
 		@items.push item
-		console.log item
 
 	createTree:(position)->
 		@trees[position] = new Tree @, position
@@ -32,6 +31,8 @@ class World
 		if piece.special?
 			if piece.special.type == 'bush'
 				piece.special.bush.loseApple()
+			if piece.special.type == 'tree'
+				piece.special.tree.hit 0.2
 
 	playerPicksItems:()->
 		itemsToRemove = []
@@ -41,3 +42,7 @@ class World
 		for index in itemsToRemove
 			@items[index] = @items[@items.length-1]
 			@player.gatherItem @items.pop()
+
+	destroyTree:(tree)->
+		delete @trees[tree.position]
+		@level.removeTree tree

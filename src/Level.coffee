@@ -57,3 +57,7 @@ class Level
 		@pieces[position].special =
 			type: 'tree'
 			tree: @world.createTree position
+
+	removeTree:(tree)->
+		@pieces[tree.position].special =
+			type: 'grass'
