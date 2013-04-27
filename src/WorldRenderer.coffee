@@ -26,20 +26,50 @@ class WorldRenderer
 		centerPiecePosition = Math.round @world.player.position
 		offset = Math.floor (centerPiecePosition - @world.player.position) * (3*16)
 	
-		for pieceIndex in [centerPiecePosition-4 .. centerPiecePosition+4]
+		visibility = 2
+		for pieceIndex in [centerPiecePosition .. centerPiecePosition+4]
 			piece = @world.level.getPiece pieceIndex
-			x = @context.canvas.width / 2 - (3*16/2) + (pieceIndex - centerPiecePosition)*(3*16) + offset
-			y = 60+1
-			@context.drawImage @spriteSheet.getNamedSprite(piece.type), x, y
-			if piece.special?
-				if piece.special.type == 'grass'
-					@context.drawImage @spriteSheet.getNamedSprite('grass'), x, y
-				if piece.special.type == 'bush'
-					@context.drawImage @spriteSheet.getNamedSprite('bush'+piece.special.bush.numberOfApples()), x, y
-				if piece.special.type == 'tree'
-					@context.drawImage @spriteSheet.getNamedSprite('tree'+piece.special.tree.getSize()), x, y
-				if piece.type == 'rock'
-					@context.drawImage @spriteSheet.getNamedSprite('rock-'+piece.special.type), x, y
+			if visibility == 0
+				@context.drawImage @spriteSheet.getNamedSprite('fog-full'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+			if visibility == 2
+				@drawPiece pieceIndex, piece, centerPiecePosition, offset
+			if ((piece.type is 'dirt') or (piece.type is 'rock')) and visibility == 2
+				visibility = 1
+			if visibility == 1
+				@drawPiece pieceIndex, piece, centerPiecePosition, offset
+				@context.drawImage @spriteSheet.getNamedSprite('fog-right'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+				visibility--
+
+		visibility = 2
+		for pieceIndex in [centerPiecePosition .. centerPiecePosition-4]
+			piece = @world.level.getPiece pieceIndex
+			if visibility == 0
+				@context.drawImage @spriteSheet.getNamedSprite('fog-full'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+			if visibility == 2
+				@drawPiece pieceIndex, piece, centerPiecePosition, offset
+			if ((piece.type is 'dirt') or (piece.type is 'rock')) and visibility == 2
+				visibility = 1
+			if visibility == 1
+				@drawPiece pieceIndex, piece, centerPiecePosition, offset
+				@context.drawImage @spriteSheet.getNamedSprite('fog-left'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+				visibility--
+
+	drawPiece:(index, piece, centerPiecePosition, offset)->
+		x = @getPieceX index, centerPiecePosition, offset
+		y = 60+1
+		@context.drawImage @spriteSheet.getNamedSprite(piece.type), x, y
+		if piece.special?
+			if piece.special.type == 'grass'
+				@context.drawImage @spriteSheet.getNamedSprite('grass'), x, y
+			if piece.special.type == 'bush'
+				@context.drawImage @spriteSheet.getNamedSprite('bush'+piece.special.bush.numberOfApples()), x, y
+			if piece.special.type == 'tree'
+				@context.drawImage @spriteSheet.getNamedSprite('tree'+piece.special.tree.getSize()), x, y
+			if piece.type == 'rock'
+				@context.drawImage @spriteSheet.getNamedSprite('rock-'+piece.special.type), x, y
+
+	getPieceX:(index, centerPiecePosition, offset)->
+		@context.canvas.width / 2 - (3*16/2) + (index - centerPiecePosition)*(3*16) + offset
 
 	drawPlayer:()->
 		if !@playerAnimations?
