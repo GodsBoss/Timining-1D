@@ -36,7 +36,7 @@ class WorldRenderer
 				if piece.special.type == 'bush'
 					@context.drawImage @spriteSheet.getNamedSprite('bush'+piece.special.bush.numberOfApples()), x, y
 				if piece.special.type == 'tree'
-					@context.drawImage @spriteSheet.getNamedSprite('tree'), x, y
+					@context.drawImage @spriteSheet.getNamedSprite('tree'+piece.special.tree.getSize()), x, y
 
 	drawPlayer:()->
 		if !@playerAnimations?

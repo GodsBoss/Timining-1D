@@ -18,6 +18,8 @@ class Level
 		@addBush 1
 		@addTree -1
 		@addTree 2
+		@pieces[-1].special.tree.size = Tree.MAX_SIZE
+		@pieces[2].special.tree.size = Tree.MAX_SIZE
 
 	getPiece:(position)->
 		if !@pieces[position]?
@@ -51,7 +53,7 @@ class Level
 			type: 'bush'
 			bush: @world.createBush position
 
-	addTree:(position)->
+	addTree:(position, startSize)->
 		@pieces[position].special =
 			type: 'tree'
 			tree: @world.createTree position

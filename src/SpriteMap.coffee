@@ -10,7 +10,7 @@ class SpriteMap
 			y: 0
 			w: 16
 			h: 16
-		tree:
+		tree3:
 			x: 32
 			y: 0
 			w: 16
@@ -37,6 +37,16 @@ class SpriteMap
 			h: 16
 		'dirt-flat':
 			x: 112
+			y: 0
+			w: 16
+			h: 16
+		tree1:
+			x: 128
+			y: 0
+			w: 16
+			h: 16
+		tree2:
+			x: 144
 			y: 0
 			w: 16
 			h: 16
