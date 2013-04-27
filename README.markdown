@@ -6,7 +6,7 @@ A minimalistic MineCraft-inspired (read: shamelessly stolen) 1D game (with a 2D 
 Goal
 ----
 
-Create the crown of geekness, the scepter of coding and build the throne of eternal development. All three require rare gold and even rarer diamonds.
+Create the crown of geekness, the scepter of coding and build the throne of eternal development. All three require rare gold and even rarer diamonds. Also you have to find the recipes first.
 
 Gameplay
 --------
