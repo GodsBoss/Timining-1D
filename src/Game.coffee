@@ -99,5 +99,6 @@ class Game
 
 	initWorld:(playerType)->
 		player = new Player playerType
-		level = new Level
-		@world = new World player, level
+		@world = new World player
+		level = new Level @world
+		@world.level = level # !!!

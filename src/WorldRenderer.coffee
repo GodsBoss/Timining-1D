@@ -27,7 +27,16 @@ class WorldRenderer
 	
 		for pieceIndex in [centerPiecePosition-4 .. centerPiecePosition+4]
 			piece = @world.level.getPiece pieceIndex
-			@context.drawImage @spriteSheet.getNamedSprite(piece.type), @context.canvas.width / 2 - (3*16/2) + (pieceIndex - centerPiecePosition)*(3*16) + offset, 60+1
+			x = @context.canvas.width / 2 - (3*16/2) + (pieceIndex - centerPiecePosition)*(3*16) + offset
+			y = 60+1
+			@context.drawImage @spriteSheet.getNamedSprite(piece.type), x, y
+			if piece.special?
+				if piece.special.type == 'grass'
+					@context.drawImage @spriteSheet.getNamedSprite('grass'), x, y
+				if piece.special.type == 'bush'
+					@context.drawImage @spriteSheet.getNamedSprite('bush'+piece.special.bush.numberOfApples()), x, y
+				if piece.special.type == 'tree'
+					@context.drawImage @spriteSheet.getNamedSprite('tree'), x, y
 
 	drawPlayer:()->
 		if !@playerAnimations?
