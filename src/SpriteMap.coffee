@@ -70,12 +70,12 @@ class SpriteMap
 			y: 16
 			w: 16
 			h: 16
-		'rock-iron-ore':
+		'rock-iron':
 			x: 32
 			y: 16
 			w: 16
 			h: 16
-		'rock-gold-ore':
+		'rock-gold':
 			x: 48
 			y: 16
 			w: 16
