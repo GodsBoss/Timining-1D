@@ -7,6 +7,7 @@ class Player
 	@SATURATION_CONVERSION_FACTOR = @MAX_HEALTH / @MAX_SATURATION
 	@SATURATION_CONVERSION_PER_SECOND = 1
 	@MAX_SPEED = 2
+	@HIT_RECOVER_TIME = 0.5
 
 	constructor:(@type)->
 		@position = 0
@@ -15,6 +16,7 @@ class Player
 		@saturation = Player.MAX_SATURATION
 		@speed = 0
 		@walking = false
+		@recover = 0
 
 	canEat:()->
 		@saturation < Player.MAX_SATURATION
@@ -27,6 +29,7 @@ class Player
 		if @health < Player.MAX_HEALTH and @saturation > 0
 			@heal(time)
 		@walk time
+		@recover = Math.max 0, @recover - time
 
 	walk:(time)->
 		if @walking
@@ -57,3 +60,10 @@ class Player
 
 	dontBeWalking:()->
 		@walking = false
+
+	hit:()->
+		if @recover > 0
+			false
+		else
+			@recover = Player.HIT_RECOVER_TIME
+			true

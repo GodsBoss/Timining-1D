@@ -21,3 +21,6 @@ class World
 
 	createBush:(position)->
 		@bushes[position] = new Bush position
+
+	playerHit:()->
+		console.log 'Hit!'

@@ -21,6 +21,10 @@ class Game
 				@world.player.beWalkingLeft()
 			if !@keysDown.a and @keysDown.d
 				@world.player.beWalkingRight()
+			if @keysDown.s
+				hit = @world.player.hit()
+				if hit
+					@world.playerHit()
 			@world.tick 1/@fps
 		@menuRenderer.pass 1/@fps
 		@draw()
