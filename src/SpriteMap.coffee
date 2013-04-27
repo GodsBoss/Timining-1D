@@ -380,6 +380,21 @@ class SpriteMap
 			y: 96
 			w: 16
 			h: 16
+		'menu-start':
+			x: 480
+			y: 0
+			w: 32
+			h: 32
+		'menu-again':
+			x: 480
+			y: 32
+			w: 32
+			h: 32
+		'menu-pause':
+			x: 480
+			y: 64
+			w: 32
+			h: 32
 
 	getSpriteInfo:(name)->
 		SpriteMap.sprites[name]
