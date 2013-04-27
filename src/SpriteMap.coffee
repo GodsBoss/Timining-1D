@@ -130,3 +130,6 @@ class SpriteMap
 			y: 64
 			w: 16
 			h: 16
+
+	getSpriteInfo:(name)->
+		SpriteMap.sprites[name]
