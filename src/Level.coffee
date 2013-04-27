@@ -28,6 +28,10 @@ class Level
 			@generate position
 		@pieces[position]
 
+	setPiece:(position, type)->
+		@pieces[position] =
+			type: type
+
 	generate:(position, specials = Level.SPECIALS)->
 		step = if position > 0 then 1 else -1
 		lastDefiningPiece = if step > 0 then @rightPiece else @leftPiece

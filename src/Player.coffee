@@ -8,6 +8,7 @@ class Player
 	@SATURATION_CONVERSION_PER_SECOND = 1
 	@MAX_SPEED = 2
 	@HIT_RECOVER_TIME = 0.5
+	@DIGGING_PROGRESS_DECAY = 0.2
 
 	constructor:(@type)->
 		@position = 0
@@ -18,6 +19,7 @@ class Player
 		@walking = false
 		@recover = 0
 		@bag = {}
+		@diggingProgress = 0
 
 	canEat:()->
 		@saturation < Player.MAX_SATURATION
@@ -31,6 +33,9 @@ class Player
 			@heal(time)
 		@walk time, level
 		@recover = Math.max 0, @recover - time
+		@diggingProgress -= Player.DIGGING_PROGRESS_DECAY * time
+		if @diggingProgress < 0
+			@diggingProgress = 0
 
 	walk:(time, level)->
 		if @walking
@@ -83,3 +88,36 @@ class Player
 		if !@bag[item.type]?
 			@bag[item.type] = 0
 		@bag[item.type]++
+
+	dig:(piece, piecePosition, world)->
+		@diggingProgress += 0.333
+		if @diggingProgress >= 1
+			@diggingProgress = 0
+			world.level.setPiece piecePosition, 'dirt-flat'
+
+	mine:(piece, piecePosition, world)->
+		if piece.special?
+			progressValues =
+				coal: 0.18
+				iron: 0.14
+				gold: 0.09
+				diamond: 0.05
+			progress = progressValues[piece.special.type]
+		else
+			progress = 0.2
+		@diggingProgress += progress
+		if @diggingProgress >= 1
+			@diggingProgress = 0
+			if piece.special?
+				if piece.special.type == 'coal'
+					world.createItems 'coal', piecePosition, Math.floor 2 + Math.random()*3
+				if piece.special.type == 'iron'
+					world.createItems 'iron-ore', piecePosition, Math.floor 2 + Math.random()*2
+				if piece.special.type == 'gold'
+					world.createItems 'gold-ore', piecePosition, Math.floor 1 + Math.random()*1.5
+				if piece.special.type == 'diamond'
+					world.createItem 'diamond', piecePosition
+				world.createItems 'rock', piecePosition, Math.floor 1 + Math.random()*2
+			else
+				world.createItems 'rock', piecePosition, Math.floor 3 + Math.random()*3
+			world.level.setPiece piecePosition, 'rock-flat'
