@@ -300,6 +300,11 @@ class SpriteMap
 			y: 64
 			w: 16
 			h: 16
+		'recipe-furnace':
+			x: 16
+			y: 64
+			w: 16
+			h: 16
 		furnace_0:
 			x: 32
 			y: 64

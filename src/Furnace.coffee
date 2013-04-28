@@ -1,19 +1,18 @@
 class Furnace
 	constructor:(@world, @position)->
+		@burnTime = 0
 
 	isBurning:()->
-		@recipe?
+		@burnTime > 0
 
 	isFree:()->
-		!@recipe?
+		@burnTime <= 0
 
-	melt:(@recipe)->
-		@fullBurnTime = @recipe.getBurnTime()
-		@burnTime = @fullBurnTime
+	melt:(@resultItemType, @burnTime)->
 
 	pass:(time)->
 		if @isBurning()
 			@burnTime -= time
 			if @burnTime < 0
-				@world.createItem @recipe.resultType, @position
-				@recipe = null
+				@burnTime = 0
+				@world.createItem @resultItemType, @position

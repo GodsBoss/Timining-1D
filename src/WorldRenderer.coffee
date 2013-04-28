@@ -63,6 +63,12 @@ class WorldRenderer
 				@context.drawImage @spriteSheet.getNamedSprite('grass'), x, y
 			if piece.special.type == 'workbench'
 				@context.drawImage @spriteSheet.getNamedSprite('workbench'), x, y
+			if piece.special.type == 'furnace'
+				furnace = piece.special.furnace
+				if furnace.isBurning()
+					0
+				else
+					@context.drawImage @spriteSheet.getNamedSprite('furnace'), x, y
 			if piece.special.type == 'bush'
 				@context.drawImage @spriteSheet.getNamedSprite('bush'+piece.special.bush.numberOfApples()), x, y
 			if piece.special.type == 'tree'

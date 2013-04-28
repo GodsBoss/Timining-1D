@@ -64,6 +64,11 @@ class Level
 			tree: @world.createTree position
 		@pieces[position].special.tree.size = startSize
 
+	addFurnace:(position)->
+		@pieces[position].special =
+			type: 'furnace'
+			furnace: @world.createFurnace position
+
 	removeTree:(tree)->
 		@pieces[tree.position].special =
 			type: 'grass'

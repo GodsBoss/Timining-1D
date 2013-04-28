@@ -29,6 +29,9 @@ class World
 	createBush:(position)->
 		@bushes[position] = new Bush @, position
 
+	createFurnace:(position)->
+		@furnaces[position] = new Furnace @, position
+
 	playerHit:()->
 		position = Math.round @player.getHitPoint()
 		piece = @level.getPiece position
@@ -67,8 +70,11 @@ class World
 			if piece.type == 'dirt-flat' and (!piece.special? or piece.special.type == 'grass')
 				actions.push new PlantSaplingAction @
 		if @player.has 'wood', 4
-			if (piece.type == 'dirt-flat' and (!piece.special? or piece.special.type == 'grass')) or piece.type == 'rock-flat'
+			if (piece.type == 'dirt-flat' or piece.type == 'rock-flat') and (!piece.special? or piece.special.type == 'grass')
 				actions.push new CreateWorkbenchAction @
+		if @player.has 'furnace'
+			if (piece.type == 'dirt-flat' or piece.type == 'rock-flat') and (!piece.special? or piece.special.type = 'grass')
+				actions.push new CreateFurnaceAction @
 		if piece.special? and piece.special.type == 'workbench'
 			for name, recipe of Recipe.recipes.workbench
 				if recipe.ingredientsContainedIn @player.bag
