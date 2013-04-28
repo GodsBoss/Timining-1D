@@ -47,7 +47,8 @@ class MenuRenderer
 		y: @context.canvas.height / 2
 
 	clear:()->
-		@context.clearRect 0, 0, @context.canvas.width, @context.canvas.height
+		@context.fillStyle = '#333333'
+		@context.fillRect 0, 0, @context.canvas.width, @context.canvas.height
 
 	isInsideStartButton:(x, y)->
 		@isInsideCenteredButton x, y
