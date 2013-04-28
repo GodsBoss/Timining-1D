@@ -215,6 +215,21 @@ class SpriteMap
 			y: 32
 			w: 16
 			h: 16
+		'recipe-wood-sword':
+			x: 240
+			y: 32
+			w: 16
+			h: 16
+		'recipe-stone-sword':
+			x: 256
+			y: 32
+			w: 16
+			h: 16
+		'recipe-iron-sword':
+			x: 272
+			y: 32
+			w: 16
+			h: 16
 		heart4:
 			x: 0
 			y: 48
@@ -487,6 +502,36 @@ class SpriteMap
 			h: 16
 		'hit-effect-right':
 			x: 240
+			y: 96
+			w: 16
+			h: 16
+		'sword-wood-left':
+			x: 256
+			y: 80
+			w: 16
+			h: 16
+		'sword-wood-right':
+			x: 256
+			y: 96
+			w: 16
+			h: 16
+		'sword-stone-left':
+			x: 272
+			y: 80
+			w: 16
+			h: 16
+		'sword-stone-right':
+			x: 272
+			y: 96
+			w: 16
+			h: 16
+		'sword-iron-left':
+			x: 288
+			y: 80
+			w: 16
+			h: 16
+		'sword-iron-right':
+			x: 288
 			y: 96
 			w: 16
 			h: 16
