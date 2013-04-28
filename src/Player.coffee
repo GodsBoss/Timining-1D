@@ -10,6 +10,8 @@ class Player
 	@HIT_RECOVER_TIME = 0.5
 	@DIGGING_PROGRESS_DECAY = 0.2
 
+	@materials = ['wood', 'stone', 'iron']
+
 	constructor:(@type)->
 		@position = 0
 		@direction = Player.RIGHT
@@ -20,6 +22,7 @@ class Player
 		@recover = 0
 		@bag = {}
 		@diggingProgress = 0
+		@currentTool = null
 
 	canEat:()->
 		@saturation < Player.MAX_SATURATION
@@ -133,3 +136,19 @@ class Player
 			else
 				world.createItems 'rock', piecePosition, Math.floor 3 + Math.random()*3
 			world.level.setPiece piecePosition, 'rock-flat'
+
+	switchToAxe:()->
+		@switchToTool 'axe'
+
+	switchToShovel:()->
+		@switchToTool 'shovel'
+
+	switchToPickaxe:()->
+		@switchToTool 'pickaxe'
+
+	switchToTool:(tool)->
+		for material in Player.materials
+			if @bag[material+'-'+tool]
+				@currentTool =
+					material: material
+					type: tool

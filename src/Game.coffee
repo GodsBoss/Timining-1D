@@ -112,6 +112,13 @@ class Game
 				@ingameMenu.getCurrentChoice().action()
 				@closeIngameMenu()
 				@avoidHitting = 0.1
+		if @state is Game.STATE_GAME_RUNNING
+			if event.keyCode == 49 # '1'
+				@world.player.switchToAxe()
+			if event.keyCode == 50 # '2'
+				@world.player.switchToShovel()
+			if event.keyCode == 51 # '3'
+				@world.player.switchToPickaxe()
 
 	draw:()->
 		if @state is Game.STATE_START_MENU
