@@ -19,7 +19,7 @@ class Zombie
 
 	pass:(time)->
 		if !@dead
-			@health += time * Zombie.HEALING_PER_SECOND
+			@health = Math.min @maxHealth, @health + time * Zombie.HEALING_PER_SECOND
 			@recovering = Math.max 0, @recovering - time
 		@lifeTime += time
 		if @knockback == 0
