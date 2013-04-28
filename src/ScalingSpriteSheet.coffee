@@ -10,5 +10,8 @@ class ScalingSpriteSheet
 	getNamedSprite:(name, fresh = no)->
 		@scale @spriteSheet.getNamedSprite name, fresh
 
+	hasNamedSprite:(name)->
+		@spriteSheet.hasNamedSprite name
+
 	getAnimationSprites:(name, number, fresh = no)->
 		(@scale image for image in @spriteSheet.getAnimationSprites name, number, fresh)

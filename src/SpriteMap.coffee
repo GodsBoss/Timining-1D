@@ -165,6 +165,51 @@ class SpriteMap
 			y: 40
 			w: 8
 			h: 8
+		'recipe-wooden-axe':
+			x: 80
+			y: 32
+			w: 16
+			h: 16
+		'recipe-wooden-shovel':
+			x: 96
+			y: 32
+			w: 16
+			h: 16
+		'recipe-wooden-pickaxe':
+			x: 112
+			y: 32
+			w: 16
+			h: 16
+		'recipe-stone-axe':
+			x: 128
+			y: 32
+			w: 16
+			h: 16
+		'recipe-stone-shovel':
+			x: 144
+			y: 32
+			w: 16
+			h: 16
+		'recipe-stone-pickaxe':
+			x: 160
+			y: 32
+			w: 16
+			h: 16
+		'recipe-iron-axe':
+			x: 176
+			y: 32
+			w: 16
+			h: 16
+		'recipe-iron-shovel':
+			x: 192
+			y: 32
+			w: 16
+			h: 16
+		'recipe-iron-pickaxe':
+			x: 208
+			y: 32
+			w: 16
+			h: 16
 		heart4:
 			x: 0
 			y: 48

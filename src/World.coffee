@@ -69,4 +69,8 @@ class World
 		if @player.has 'wood', 4
 			if (piece.type == 'dirt-flat' and (!piece.special? or piece.special.type == 'grass')) or piece.type == 'rock-flat'
 				actions.push new CreateWorkbenchAction @
+		if piece.special? and piece.special.type == 'workbench'
+			for name, recipe of Recipe.recipes.workbench
+				if recipe.ingredientsContainedIn @player.bag
+					actions.push new WorkbenchRecipeAction recipe, @player
 		actions

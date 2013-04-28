@@ -30,6 +30,10 @@ class Player
 	consume:(itemType, number = 1)->
 		@bag[itemType] -= number
 
+	consumeMany:(items)->
+		for itemType, number of items
+			@consume itemType, number
+
 	eatApple:()->
 		if @canEat() and @bag['apple']? and @bag['apple'] > 0
 			@saturation += 5

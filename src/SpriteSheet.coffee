@@ -23,6 +23,9 @@ class SpriteSheet
 			@spriteCache[name] = sprite
 			sprite
 
+	hasNamedSprite:(name)->
+		@spriteCache[name]? or @spriteMap.getSpriteInfo(name)
+
 	getAnimationSprites:(name, number, fresh = no)->
 		(@getNamedSprite(name+'_'+n, fresh) for n in [0..number-1])
 

@@ -12,8 +12,12 @@ class IngameMenuRenderer
 		for indexOffset in [-2..2]
 			spriteCenterX = 160 + indexOffset*60
 			choice = ingameMenu.getChoice ingameMenu.selected + indexOffset
+			sprite = null
 			if IngameMenuRenderer.actionSprites[choice.name]?
-				sprite = @spriteSheet.getNamedSprite(IngameMenuRenderer.actionSprites[choice.name])
+				sprite = @spriteSheet.getNamedSprite IngameMenuRenderer.actionSprites[choice.name]
+			if !sprite? and @spriteSheet.hasNamedSprite 'recipe-' + choice.name
+				sprite = @spriteSheet.getNamedSprite 'recipe-' + choice.name
+			if sprite?
 				x = spriteCenterX - sprite.width/2
 				y = spriteCenterY - sprite.height/2
 				@context.drawImage sprite, x, y
