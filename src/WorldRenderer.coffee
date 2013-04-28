@@ -11,11 +11,11 @@ class WorldRenderer
 		@drawSaturation()
 
 	clear:()->
-		@context.fillStyle = '#333333'
-		@context.fillRect 0, 0, @context.canvas.width, @context.canvas.height
+		@context.drawImage @spriteSheet.getNamedSprite('background'), 0, 0
 
 	drawLandscape:()->
 		@context.strokeStyle = '#888888'
+		@context.lineWidth = 2
 		@context.beginPath()
 		@context.moveTo 0, 60
 		@context.lineTo @context.canvas.width, 60
@@ -26,33 +26,40 @@ class WorldRenderer
 
 		centerPiecePosition = Math.round @world.player.position
 		offset = Math.floor (centerPiecePosition - @world.player.position) * (3*16)
+
+		sky = @spriteSheet.getNamedSprite 'sky'
+		fullFog = @spriteSheet.getNamedSprite 'fog-full'
 	
 		visibility = 2
 		for pieceIndex in [centerPiecePosition .. centerPiecePosition+4]
 			piece = @world.level.getPiece pieceIndex
+			x = @getPieceX(pieceIndex, centerPiecePosition, offset)
+			@context.drawImage sky, x, 60+1
 			if visibility == 0
-				@context.drawImage @spriteSheet.getNamedSprite('fog-full'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+				@context.drawImage fullFog, x, 60+1
 			if visibility == 2
 				@drawPiece pieceIndex, piece, centerPiecePosition, offset
 			if ((piece.type is 'dirt') or (piece.type is 'rock')) and visibility == 2
 				visibility = 1
 			if visibility == 1
 				@drawPiece pieceIndex, piece, centerPiecePosition, offset
-				@context.drawImage @spriteSheet.getNamedSprite('fog-right'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+				@context.drawImage @spriteSheet.getNamedSprite('fog-right'), x, 60+1
 				visibility--
 
 		visibility = 2
 		for pieceIndex in [centerPiecePosition .. centerPiecePosition-4]
 			piece = @world.level.getPiece pieceIndex
+			x = @getPieceX(pieceIndex, centerPiecePosition, offset)
+			@context.drawImage sky, x, 60+1
 			if visibility == 0
-				@context.drawImage @spriteSheet.getNamedSprite('fog-full'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+				@context.drawImage fullFog, x, 60+1
 			if visibility == 2
 				@drawPiece pieceIndex, piece, centerPiecePosition, offset
 			if ((piece.type is 'dirt') or (piece.type is 'rock')) and visibility == 2
 				visibility = 1
 			if visibility == 1
 				@drawPiece pieceIndex, piece, centerPiecePosition, offset
-				@context.drawImage @spriteSheet.getNamedSprite('fog-left'), @getPieceX(pieceIndex, centerPiecePosition, offset), 60+1
+				@context.drawImage @spriteSheet.getNamedSprite('fog-left'), x, 60+1
 				visibility--
 
 	drawPiece:(index, piece, centerPiecePosition, offset)->

@@ -760,6 +760,21 @@ class SpriteMap
 			y: 144
 			w: 16
 			h: 16
+		'background':
+			x: 128
+			y: 192
+			w: 112
+			h: 80
+		'sky':
+			x: 0
+			y: 160
+			w: 16
+			h: 16
+		'title':
+			x: 16
+			y: 160
+			w: 106
+			h: 32
 
 	getSpriteInfo:(name)->
 		SpriteMap.sprites[name]

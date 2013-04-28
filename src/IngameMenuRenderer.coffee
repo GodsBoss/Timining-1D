@@ -9,6 +9,7 @@ class IngameMenuRenderer
 
 	draw:(ingameMenu)->
 		spriteCenterY = 145
+		@context.lineWidth = 2
 		for indexOffset in [-2..2]
 			spriteCenterX = 160 + indexOffset*60
 			choice = ingameMenu.getChoice ingameMenu.selected + indexOffset
@@ -23,5 +24,7 @@ class IngameMenuRenderer
 				x = spriteCenterX - sprite.width/2
 				y = spriteCenterY - sprite.height/2
 				@context.drawImage sprite, x, y
+			@context.strokeStyle = '#111111'
+			@context.strokeRect 135 + indexOffset*60, 119, 50, 50
 		@context.strokeStyle = '#bbbbbb'
 		@context.strokeRect 135, 119, 50, 50

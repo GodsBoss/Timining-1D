@@ -13,6 +13,7 @@ class MenuRenderer
 
 	drawStartMenu:()->
 		@drawSingleButtonScreen 'menu-start'
+		@drawTitle()
 
 	drawPausedGame:()->
 		@drawSingleButtonScreen 'menu-pause', MenuRenderer.DO_NOT_CLEAR
@@ -32,6 +33,7 @@ class MenuRenderer
 
 	drawChooseCharacter:()->
 		@clear()
+		@drawTitle()
 		center = @getCenter()
 		sprite = @spriteSheet.getNamedSprite('menu-empty')
 		margin = Math.floor (@context.canvas.width - 2 * sprite.width) / 3
@@ -42,13 +44,18 @@ class MenuRenderer
 		@context.drawImage charOne, margin + sprite.width/2 - charOne.width/2, center.y - charOne.height/2
 		@context.drawImage charTwo, @context.canvas.width - sprite.width/2 - margin - charTwo.width/2, center.y - charTwo.height/2
 
+	drawTitle:()->
+		title = @spriteSheet.getNamedSprite 'title'
+		x = @context.canvas.width/2 - title.width/2
+		y = 10
+		@context.drawImage title, x, y
+
 	getCenter:()->
 		x: @context.canvas.width / 2
 		y: @context.canvas.height / 2
 
 	clear:()->
-		@context.fillStyle = '#333333'
-		@context.fillRect 0, 0, @context.canvas.width, @context.canvas.height
+		@context.drawImage @spriteSheet.getNamedSprite('background'), 0, 0
 
 	isInsideStartButton:(x, y)->
 		@isInsideCenteredButton x, y
