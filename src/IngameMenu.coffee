@@ -1,5 +1,5 @@
 class IngameMenu
-	constructor:(@game, @choices)->
+	constructor:(@choices)->
 		@selected = 0
 
 	selectNext:()->
@@ -18,5 +18,4 @@ class IngameMenu
 		@choices[@selected]
 
 	invoke:()->
-		@game.closeIngameMenu()
 		@choices[@selected].action()

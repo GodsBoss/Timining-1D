@@ -103,13 +103,14 @@ class Game
 					@closeIngameMenu()
 				else
 					@openIngameMenu()
-		if event.keyCode == 97 # 'a'
-			1
-		if event.keyCode == 100 # 'd'
-			1
-		if event.keyCode == 115 # 's'
-			if @ingameMenu?
+		if @ingameMenu?
+			if event.keyCode == 97 # 'a'
+				@ingameMenu.selectPrevious()
+			if event.keyCode == 100 # 'd'
+				@ingameMenu.selectNext()
+			if event.keyCode == 115 # 's'
 				@ingameMenu.getCurrentChoice().action()
+				@closeIngameMenu()
 				@avoidHitting = 0.1
 
 	draw:()->
@@ -138,7 +139,7 @@ class Game
 	openIngameMenu:()->
 		choices = @world.getPossiblePlayerActions()
 		choices.push new CloseIngameMenuAction @
-		@ingameMenu = new IngameMenu @, choices
+		@ingameMenu = new IngameMenu choices
 
 	isInsideInGameMenu:()->
 		Game.STATE_GAME_RUNNING and @ingameMenu?
