@@ -4,6 +4,7 @@ class Game
 	@STATE_GAME_RUNNING = 3
 	@STATE_GAME_PAUSE = 4
 	@STATE_DEAD = 5
+	@STATE_VICTORY = 6
 
 	constructor:(@menuRenderer, @worldRenderer, @ingameMenuRenderer, @fps)->
 		@state = Game.STATE_START_MENU
@@ -34,6 +35,9 @@ class Game
 					@world.tick 1/@fps
 			if @world.player.isDead()
 				@state = Game.STATE_DEAD
+			if @world.player.hasCrown()
+				@worldRenderer.draw @world
+				@state = Game.STATE_VICTORY
 		@menuRenderer.pass 1/@fps
 		if @avoidHitting > 0
 			@avoidHitting = Math.max 0, @avoidHitting - 1/@fps
@@ -50,6 +54,8 @@ class Game
 			event.target.className = if @menuRenderer.isInsidePauseButton pos.x, pos.y then 'clickable' else ''
 		if @state is Game.STATE_DEAD
 			event.target.className = if @menuRenderer.isInsideAgainButton pos.x, pos.y then 'clickable' else ''
+		if @state is Game.STATE_VICTORY
+			event.target.className = if @menuRenderer.isInsideVictoryButton pos.x, pos.y then 'clickable' else ''
 		if @state is Game.STATE_GAME_RUNNING
 			event.target.className = ''
 		if @state is Game.STATE_CHOOSE_CHARACTER
@@ -62,6 +68,10 @@ class Game
 			@mouseMove event
 			return
 		if @state is Game.STATE_DEAD and @menuRenderer.isInsideAgainButton pos.x, pos.y
+			@state = Game.STATE_START_MENU
+			@mouseMove event
+			return
+		if @state is Game.STATE_VICTORY and @menuRenderer.isInsideVictoryButton pos.x, pos.y
 			@state = Game.STATE_START_MENU
 			@mouseMove event
 			return
@@ -135,6 +145,8 @@ class Game
 			@menuRenderer.drawPausedGame()
 		if @state is Game.STATE_DEAD
 			@menuRenderer.drawDead()
+		if @state is Game.STATE_VICTORY
+			@menuRenderer.drawVictory()
 
 	initWorld:(playerType)->
 		player = new Player playerType

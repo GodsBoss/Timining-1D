@@ -58,6 +58,12 @@ class Recipe
 					iron: 3
 				result:
 					value: 'iron-pickaxe'
+			'crown':
+				ingredients:
+					gold: 8
+					diamond: 3
+				result:
+					value: 'crown'
 		furnace:
 			iron:
 				ingredients:

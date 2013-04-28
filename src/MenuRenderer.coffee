@@ -20,6 +20,9 @@ class MenuRenderer
 	drawDead:()->
 		@drawSingleButtonScreen 'menu-again', MenuRenderer.DO_NOT_CLEAR
 
+	drawVictory:()->
+		@drawSingleButtonScreen 'menu-victory', MenuRenderer.DO_NOT_CLEAR
+
 	drawSingleButtonScreen:(spriteName, clear = true)->
 		if clear
 			@clear()
@@ -53,6 +56,9 @@ class MenuRenderer
 		@isInsideCenteredButton x, y
 
 	isInsideAgainButton:(x, y)->
+		@isInsideCenteredButton x, y
+
+	isInsideVictoryButton:(x, y)->
 		@isInsideCenteredButton x, y
 
 	isInsideCenteredButton:(x, y)->

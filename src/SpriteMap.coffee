@@ -210,6 +210,11 @@ class SpriteMap
 			y: 32
 			w: 16
 			h: 16
+		'recipe-crown':
+			x: 224
+			y: 32
+			w: 16
+			h: 16
 		heart4:
 			x: 0
 			y: 48
@@ -505,7 +510,7 @@ class SpriteMap
 			y: 96
 			w: 32
 			h: 32
-		'menu-victorious':
+		'menu-victory':
 			x: 448
 			y: 128
 			w: 32

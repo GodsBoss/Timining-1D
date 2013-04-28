@@ -181,3 +181,6 @@ class Player
 
 	isDead:()->
 		@dead
+
+	hasCrown:()->
+		@bag['crown']? and @bag['crown'] > 0
