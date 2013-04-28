@@ -2,6 +2,7 @@ class IngameMenuRenderer
 	@actionSprites =
 		close: 'exit'
 		'eat-apple': 'item-apple'
+		'plant-sapling': 'item-sapling'
 
 	constructor:(@context, @spriteSheet)->
 

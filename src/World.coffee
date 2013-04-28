@@ -60,4 +60,8 @@ class World
 		actions = []
 		if @player.canEat() and @player.has 'apple'
 			actions.push new PlayerEatsAppleAction @player
+		if @player.has 'sapling'
+			piece = @level.getPiece(Math.round @player.position)
+			if piece.type == 'dirt-flat' and (!piece.special? or piece.special.type == 'grass')
+				actions.push new PlantSaplingAction @
 		actions

@@ -58,7 +58,7 @@ class Level
 			type: 'bush'
 			bush: @world.createBush position
 
-	addTree:(position, startSize)->
+	addTree:(position, startSize = 0.00001)->
 		@pieces[position].special =
 			type: 'tree'
 			tree: @world.createTree position

@@ -27,6 +27,9 @@ class Player
 	has:(itemType, number = 1)->
 		@bag[itemType]? and @bag[itemType] >= number
 
+	consume:(itemType, number = 1)->
+		@bag[itemType] -= number
+
 	eatApple:()->
 		if @canEat() and @bag['apple']? and @bag['apple'] > 0
 			@saturation += 5
