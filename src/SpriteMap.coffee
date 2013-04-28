@@ -505,6 +505,11 @@ class SpriteMap
 			y: 96
 			w: 32
 			h: 32
+		'menu-victorious':
+			x: 448
+			y: 128
+			w: 32
+			h: 32
 		'a':
 			x: 0
 			y: 112
