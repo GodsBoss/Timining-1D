@@ -57,4 +57,7 @@ class World
 		@level.removeTree tree
 
 	getPossiblePlayerActions:()->
-		[]
+		actions = []
+		if @player.canEat() and @player.has 'apple'
+			actions.push new PlayerEatsAppleAction @player
+		actions

@@ -24,8 +24,13 @@ class Player
 	canEat:()->
 		@saturation < Player.MAX_SATURATION
 
-	eat:(food)->
-		@saturation += food.saturation
+	has:(itemType, number = 1)->
+		@bag[itemType]? and @bag[itemType] >= number
+
+	eatApple:()->
+		if @canEat() and @bag['apple']? and @bag['apple'] > 0
+			@saturation += 5
+			@bag['apple']--
 
 	# time is in seconds
 	tick:(time, level)->
