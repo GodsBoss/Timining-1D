@@ -92,7 +92,7 @@ class WorldRenderer
 				@context.drawImage @spriteSheet.getNamedSprite('item-'+item.type), x, 60 + 3*16 - 4*3 - 8*3/2
 
 	drawHealth:()->
-		fullHearts = Math.floor 10 * @world.player.health / Player.MAX_HEALTH
+		fullHearts = Math.min 10, Math.floor 10 * @world.player.health / Player.MAX_HEALTH
 		fullHeartSprite = @spriteSheet.getNamedSprite 'heart4'
 		for i in [0..fullHearts-1]
 			@context.drawImage fullHeartSprite, i * 3 * (8+1), 3*1
@@ -107,7 +107,7 @@ class WorldRenderer
 			@context.drawImage emptyHeartSprite, i * 3 * (8+1), 3*1
 
 	drawSaturation:()->
-		fullSats = Math.floor 10 * @world.player.saturation / Player.MAX_SATURATION
+		fullSats = Math.min 10, Math.floor 10 * @world.player.saturation / Player.MAX_SATURATION
 		fullSatSprite = @spriteSheet.getNamedSprite 'saturation2'
 		for i in [0..fullSats-1]
 			@context.drawImage fullSatSprite, i * 3 * (8+1), 3*(1+8+1)
