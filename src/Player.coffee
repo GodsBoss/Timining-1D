@@ -164,3 +164,6 @@ class Player
 				@currentTool =
 					material: material
 					type: tool
+
+	getChoppingPower:()->
+		0.2 * (if @currentTool?.type == 'axe' then Player.toolSpeedFactor[@currentTool.material] else 1)

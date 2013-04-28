@@ -42,7 +42,7 @@ class World
 				if piece.special.type == 'bush'
 					piece.special.bush.loseApple()
 				if piece.special.type == 'tree'
-					piece.special.tree.hit 0.2
+					piece.special.tree.hit @player.getChoppingPower()
 		if piece.type == 'dirt'
 			@player.dig piece, position, @
 		if piece.type == 'rock'
