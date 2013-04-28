@@ -18,6 +18,6 @@ class Tree
 		@structure -= force
 		if @structure <= 0
 			@world.createItem 'sapling', @position
-			for i in [0..Math.floor(2 + Math.random() * 3)]
+			for i in [1..Math.floor(2 + Math.random() * 3)]
 				@world.createItem 'wood', @position
 			@world.destroyTree @
