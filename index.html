@@ -4,21 +4,57 @@
 <meta charset="utf-8" />
 <title>Timining 1D</title>
 <style type="text/css">
+	table,
+	canvas{
+		margin-left:auto;
+		margin-right:auto;}
+
 	canvas{
 		display:block;
 		margin-left:auto;
 		margin-right:auto;
-		margin-top:100px;
+		margin-top:25px;
 		border:1px solid #ddd;
 		cursor:default;}
 
 	canvas.clickable{
 		cursor:pointer;}
+
+	table{
+		margin-top:25px;
+		width:320px;
+		border-collapse:collapse;}
+
+	th,
+	td{
+		border:1px solid #999;}
+
+	td:first-child{
+		text-align:center;}
 </style>
 <script src="timining.js" type="text/javascript"></script>
 <script src="init.js" type="text/javascript"></script>
 </head>
 <body>
 <canvas id="screen" width="320" height="240"></canvas>
+<div id="help">
+<table>
+<thead>
+<tr><th>What?</th><th>Explanation</th></tr>
+</thead>
+<tbody>
+<tr><td><img src="images/Player.png" /></td><td>This is you. You can move to the left with 'a' and to the right with 'd'.</td></tr>
+<tr><td><img src="images/Hearts.png" /></td><td>This is your health. If it drops to zero, you are dead.</td></tr>
+<tr><td><img src="images/Saturation.png" /></td><td>This is your saturation, which will be converted to health if you are wounded.</td></tr>
+<tr><td><img src="images/Hit.png" /></td><td>Press 's' to hit things.</td></tr>
+<tr><td><img src="images/Bush.png" /></td><td>This is a bush. Hit it and it will drop apples. Bushes slowly regrow apples.</td></tr>
+<tr><td><img src="images/Tree.png" /></td><td>This is a tree. Hit it to chop. Beware, it will take a while if using your bare hands. Trees drop saplings which can grow into new trees.</td></tr>
+<tr><td><img src="images/Items.png" /></td><td>Gather items by running over them.</td></tr>
+<tr><td><img src="images/Exit.png" /></td><td>The action menu. Can be opened with 'w'. Select an action with 'a' and 'd', then invoke it with 's'. If you don't want any action, use the 'exit' action or just press 'w' again. There are different places and times for different actions - for example, you cannot eat an apple if you are full and you cannot plant a sapling onto rock.</td></tr>
+<tr><td><img src="images/Tools.png" /></td><td>Later in the game you can craft tools. There are three tools:<ul><li>Axe - Press '1'</li><li>Shovel - Press '2'</li><li>Pickaxe - Press '3'</li></ul>The game will choose the best available tool of the chosen type automatically for you. Better tools are faster, do more damage, or something.</td></tr>
+<tr><td><img src="images/Zombie.png" /></td><td>After some time, zombies attack. Be sure to be prepared!</td></tr>
+</tbody>
+</table>
+</div>
 </body>
 </html>
