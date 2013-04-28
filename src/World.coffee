@@ -1,10 +1,21 @@
 class World
+	@MAX_ZOMBIES = 20
+	@SPAWN_THRESHOLD = 30
+	@MIN_SPAWN_THRESHOLD = 10
+	@SPAWNING_CONVERSION = 0.025
+
 	constructor:(@player)->
 		@furnaces = {}
 		@items = []
 		@time = 0
 		@bushes = {}
 		@trees = {}
+		@zombies = []
+		@spawnZone =
+			left: 0
+			right: 0
+		@spawnValue = -60
+		@spawnFactor = 0
 
 	tick:(time)->
 		@time += time
@@ -15,7 +26,16 @@ class World
 			tree.grow time
 		for position, furnace of @furnaces
 			furnace.pass time
+		deadZombies = []
+		for zombie, index in @zombies
+			zombie.pass time
+			if zombie.isDead()
+				deadZombies.unshift index
+		for index in deadZombies
+			@zombies[index] = @zombies[@zombies.length-1]
+			@zombies.pop()
 		@playerPicksItems()
+		@maybeSpawnZombies time
 
 	createItem:(type, position, random = true)->
 		item = new Item type, position + (if random then Math.random() - 0.5 else 0)
@@ -35,6 +55,8 @@ class World
 		@furnaces[position] = new Furnace @, position
 
 	playerHit:()->
+		if @playerHitsZombie()
+			return
 		position = Math.round @player.getHitPoint()
 		piece = @level.getPiece position
 		if piece.type == 'dirt-flat'
@@ -47,6 +69,14 @@ class World
 			@player.dig piece, position, @
 		if piece.type == 'rock'
 			@player.mine piece, position, @
+
+	playerHitsZombie:()->
+		playerPosition = @player.getHitPoint()
+		for zombie in @zombies
+			zombiePosition = zombie.position
+			if Math.abs(playerPosition - zombiePosition) <= Zombie.WIDTH
+				zombie.isHit @player.getAttackPower()
+				return true
 
 	playerPicksItems:()->
 		itemsToRemove = []
@@ -86,3 +116,28 @@ class World
 				if recipe.ingredientsContainedIn @player.bag
 					actions.push new FurnaceRecipeAction recipe, @player, piece.special.furnace
 		actions
+
+	maybeSpawnZombies:(time)->
+		@spawnFactor += time
+		@spawnValue += time
+		@adjustSpawnZones()
+		if @zombies.length < World.MAX_ZOMBIES and @spawnValue > @spawnThreshold()
+			@spawnZombie()
+			@spawnValue -= @spawnThreshold()
+
+	adjustSpawnZones:()->
+		@spawnZone.left = Math.min @spawnZone.left, @player.position
+		@spawnZone.right = Math.max @spawnZone.right, @player.position
+
+	spawnThreshold:()->
+		Math.max World.MIN_SPAWN_THRESHOLD, World.SPAWN_THRESHOLD - @spawnFactor * World.SPAWNING_CONVERSION
+
+	spawnZombie:()->
+		possiblePositions = []
+		if @player.position - 6 > @spawnZone.left
+			possiblePositions.push @player.position - 6
+		if @player.position + 6 < @spawnZone.right
+			possiblePositions.push @player.position + 6
+		if possiblePositions.length > 0
+			position = possiblePositions[Math.floor Math.random()*possiblePositions.length]
+			@zombies.push new Zombie @, position, 1

@@ -56,6 +56,8 @@ class Player
 
 	# time is in seconds
 	tick:(time, level)->
+		if @dead
+			return
 		if @health < Player.MAX_HEALTH and @saturation > 0
 			@heal(time)
 		@walk time, level
@@ -85,7 +87,7 @@ class Player
 		@saturation -= conversion / Player.SATURATION_CONVERSION_FACTOR
 
 	isWalking:()->
-		@walking or 0.1 < Math.abs @speed
+		!@dead and (@walking or 0.1 < Math.abs @speed)
 
 	beWalkingLeft:()->
 		@walking = true
@@ -99,7 +101,7 @@ class Player
 		@walking = false
 
 	hit:()->
-		if @recover > 0
+		if @dead or @recover > 0
 			false
 		else
 			@recover = Player.HIT_RECOVER_TIME
@@ -167,3 +169,15 @@ class Player
 
 	getChoppingPower:()->
 		0.2 * (if @currentTool?.type == 'axe' then Player.toolSpeedFactor[@currentTool.material] else 1)
+
+	getAttackPower:()->
+		0.5
+
+	isHit:(damage)->
+		@health -= damage
+		if @health <= 0
+			@health = 0
+			@dead = yes
+
+	isDead:()->
+		@dead

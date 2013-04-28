@@ -4,6 +4,7 @@ class WorldRenderer
 	draw:(@world)->
 		@clear()
 		@drawLandscape()
+		@drawZombies()
 		@drawPlayer()
 		@drawItems()
 		@drawHealth()
@@ -109,8 +110,9 @@ class WorldRenderer
 	drawHealth:()->
 		fullHearts = Math.min 10, Math.floor 10 * @world.player.health / Player.MAX_HEALTH
 		fullHeartSprite = @spriteSheet.getNamedSprite 'heart4'
-		for i in [0..fullHearts-1]
-			@context.drawImage fullHeartSprite, i * 3 * (8+1), 3*1
+		if fullHearts > 0
+			for i in [0..fullHearts-1]
+				@context.drawImage fullHeartSprite, i * 3 * (8+1), 3*1
 		if fullHearts is 10
 			return
 		partial = Math.ceil 4 * (10 * @world.player.health / Player.MAX_HEALTH - fullHearts)
@@ -124,8 +126,9 @@ class WorldRenderer
 	drawSaturation:()->
 		fullSats = Math.min 10, Math.floor 10 * @world.player.saturation / Player.MAX_SATURATION
 		fullSatSprite = @spriteSheet.getNamedSprite 'saturation2'
-		for i in [0..fullSats-1]
-			@context.drawImage fullSatSprite, i * 3 * (8+1), 3*(1+8+1)
+		if fullSats > 0
+			for i in [0..fullSats-1]
+				@context.drawImage fullSatSprite, i * 3 * (8+1), 3*(1+8+1)
 		if fullSats is 10
 			return
 		partial = Math.ceil 2 * (10 * @world.player.saturation / Player.MAX_SATURATION - fullSats)
@@ -135,3 +138,18 @@ class WorldRenderer
 		emptySatSprite = @spriteSheet.getNamedSprite 'saturation0'
 		for i in [fullSats+1..9]
 			@context.drawImage emptySatSprite, i * 3 * (8+1), 3*(1+8+1)
+
+	drawZombies:()->
+		if !@zombieAnimations?
+			@zombieAnimations =
+				left: new Animation @spriteSheet.getAnimationSprites('zombie-left', 2), 0.25
+				right: new Animation @spriteSheet.getAnimationSprites('zombie-right', 2), 0.25
+		for zombie in @world.zombies
+			diff = zombie.position - @world.player.position
+			if Math.abs(diff) < 5
+				if zombie.isWalking()
+					sprite = @zombieAnimations[zombie.getDirection()].getImage zombie.lifeTime
+				else
+					sprite = @zombieAnimations[zombie.getDirection()].getImage 0
+				x = @context.canvas.width/2 + diff * 16 * 3 - sprite.width/2
+				@context.drawImage sprite, x, 61

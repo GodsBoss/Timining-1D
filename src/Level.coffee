@@ -20,6 +20,7 @@ class Level
 		@addBush 1
 		@addTree -1, Tree.MAX_SIZE
 		@addTree 2, Tree.MAX_SIZE
+		@addTree -2, Tree.MAX_SIZE
 
 	getPiece:(position)->
 		if !@pieces[position]?

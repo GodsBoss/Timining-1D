@@ -18,7 +18,7 @@ class MenuRenderer
 		@drawSingleButtonScreen 'menu-pause', MenuRenderer.DO_NOT_CLEAR
 
 	drawDead:()->
-		@drawSingleButtonScreen 'menu-again'
+		@drawSingleButtonScreen 'menu-again', MenuRenderer.DO_NOT_CLEAR
 
 	drawSingleButtonScreen:(spriteName, clear = true)->
 		if clear

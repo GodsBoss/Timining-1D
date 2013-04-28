@@ -32,6 +32,8 @@ class Game
 			else
 				if !@ingameMenu?
 					@world.tick 1/@fps
+			if @world.player.isDead()
+				@state = Game.STATE_DEAD
 		@menuRenderer.pass 1/@fps
 		if @avoidHitting > 0
 			@avoidHitting = Math.max 0, @avoidHitting - 1/@fps
