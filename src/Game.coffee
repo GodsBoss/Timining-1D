@@ -107,32 +107,32 @@ class Game
 			@keysDown.s = false
 
 	keyPress:(event)=>
-		if event.keyCode == 112 # 'p'
+		if event.charCode == 112 # 'p'
 			if @state is Game.STATE_GAME_RUNNING or @state is Game.STATE_GAME_PAUSE
 				@state = if @state is Game.STATE_GAME_RUNNING then Game.STATE_GAME_PAUSE else Game.STATE_GAME_RUNNING
-		if event.keyCode == 119 # 'w'
+		if event.charCode == 119 # 'w'
 			if @state is Game.STATE_GAME_RUNNING
 				if @ingameMenu?
 					@closeIngameMenu()
 				else
 					@openIngameMenu()
 		if @ingameMenu?
-			if event.keyCode == 97 # 'a'
+			if event.charCode == 97 # 'a'
 				@ingameMenu.selectPrevious()
-			if event.keyCode == 100 # 'd'
+			if event.charCode == 100 # 'd'
 				@ingameMenu.selectNext()
-			if event.keyCode == 115 # 's'
+			if event.charCode == 115 # 's'
 				@ingameMenu.getCurrentChoice().action()
 				@closeIngameMenu()
 				@avoidHitting = 0.1
 		if @state is Game.STATE_GAME_RUNNING
-			if event.keyCode == 49 # '1'
+			if event.charCode == 49 # '1'
 				@world.player.switchToAxe()
-			if event.keyCode == 50 # '2'
+			if event.charCode == 50 # '2'
 				@world.player.switchToShovel()
-			if event.keyCode == 51 # '3'
+			if event.charCode == 51 # '3'
 				@world.player.switchToPickaxe()
-			if event.keyCode == 52 # '4'
+			if event.charCode == 52 # '4'
 				@world.player.switchToSword()
 
 	draw:()->
