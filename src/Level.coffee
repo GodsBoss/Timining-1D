@@ -82,29 +82,29 @@ class Level
 					type: 'bush'
 					bush: @world.createBush position
 				return
-			if v < 0.15
+			if v < 0.2
 				piece.special =
 					type: 'tree'
 					tree: @world.createTree position
 				return
 		if piece.type == 'rock'
-			if v < 0.01
-				if 50 < Math.abs position
+			if v < 0.02
+				if 40 < Math.abs position
 					piece.special =
 						type: 'diamond'
 				return
-			if v < 0.03
-				if 40 < Math.abs position
+			if v < 0.06
+				if 25 < Math.abs position
 					piece.special =
 						type: 'gold'
 				return
-			if v < 0.1
-				if 25 < Math.abs position
+			if v < 0.14
+				if 15 < Math.abs position
 					piece.special =
 						type: 'iron'
 				return
-			if v < 0.2
-				if 15 < Math.abs position
+			if v < 0.26
+				if 10 < Math.abs position
 					piece.special =
 						type: 'coal'
 				return
