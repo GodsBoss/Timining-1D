@@ -17,6 +17,8 @@ class IngameMenuRenderer
 				sprite = @spriteSheet.getNamedSprite IngameMenuRenderer.actionSprites[choice.name]
 			if !sprite? and @spriteSheet.hasNamedSprite 'recipe-' + choice.name
 				sprite = @spriteSheet.getNamedSprite 'recipe-' + choice.name
+			if !sprite? and @spriteSheet.hasNamedSprite 'item-' + choice.name
+				sprite = @spriteSheet.getNamedSprite 'item-' + choice.name
 			if sprite?
 				x = spriteCenterX - sprite.width/2
 				y = spriteCenterY - sprite.height/2

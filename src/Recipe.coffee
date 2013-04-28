@@ -65,7 +65,7 @@ class Recipe
 					'iron-ore': 1
 				result:
 					value: 'iron'
-				time: 30
+				time: 25
 			gold:
 				ingredients:
 					coal: 1

@@ -1,6 +1,6 @@
 class World
 	constructor:(@player)->
-		@furnaces = []
+		@furnaces = {}
 		@items = []
 		@time = 0
 		@bushes = {}
@@ -13,6 +13,8 @@ class World
 			bush.grow time
 		for position, tree of @trees
 			tree.grow time
+		for position, furnace of @furnaces
+			furnace.pass time
 		@playerPicksItems()
 
 	createItem:(type, position, random = true)->
@@ -79,4 +81,8 @@ class World
 			for name, recipe of Recipe.recipes.workbench
 				if recipe.ingredientsContainedIn @player.bag
 					actions.push new WorkbenchRecipeAction recipe, @player
+		if piece.special? and piece.special.type == 'furnace' and piece.special.furnace.isEmpty()
+			for name, recipe of Recipe.recipes.furnace
+				if recipe.ingredientsContainedIn @player.bag
+					actions.push new FurnaceRecipeAction recipe, @player, piece.special.furnace
 		actions

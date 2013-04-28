@@ -66,7 +66,9 @@ class WorldRenderer
 			if piece.special.type == 'furnace'
 				furnace = piece.special.furnace
 				if furnace.isBurning()
-					0
+					if !@furnaceAnimation?
+						@furnaceAnimation = new Animation @spriteSheet.getAnimationSprites('furnace', 4), 0.25
+					@context.drawImage @furnaceAnimation.getImage(furnace.burnTime), x, y
 				else
 					@context.drawImage @spriteSheet.getNamedSprite('furnace'), x, y
 			if piece.special.type == 'bush'

@@ -5,10 +5,12 @@ class Furnace
 	isBurning:()->
 		@burnTime > 0
 
-	isFree:()->
+	isEmpty:()->
 		@burnTime <= 0
 
-	melt:(@resultItemType, @burnTime)->
+	melt:(recipe)->
+		@burnTime = recipe.burnTime
+		@resultItemType = recipe.resultItemType
 
 	pass:(time)->
 		if @isBurning()
