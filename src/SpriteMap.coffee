@@ -486,22 +486,22 @@ class SpriteMap
 			w: 16
 			h: 16
 		'menu-start':
-			x: 480
+			x: 448
 			y: 0
 			w: 32
 			h: 32
 		'menu-again':
-			x: 480
+			x: 448
 			y: 32
 			w: 32
 			h: 32
 		'menu-pause':
-			x: 480
+			x: 448
 			y: 64
 			w: 32
 			h: 32
 		'menu-empty':
-			x: 480
+			x: 448
 			y: 96
 			w: 32
 			h: 32
