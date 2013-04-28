@@ -49,8 +49,10 @@ class World
 			if Math.abs(@player.position - item.position) < 0.2
 				itemsToRemove.unshift index
 		for index in itemsToRemove
+			item = @items[index]
 			@items[index] = @items[@items.length-1]
-			@player.gatherItem @items.pop()
+			@items.pop()
+			@player.gatherItem item
 
 	destroyTree:(tree)->
 		delete @trees[tree.position]
