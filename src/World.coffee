@@ -75,7 +75,7 @@ class World
 			if (piece.type == 'dirt-flat' or piece.type == 'rock-flat') and (!piece.special? or piece.special.type == 'grass')
 				actions.push new CreateWorkbenchAction @
 		if @player.has 'furnace'
-			if (piece.type == 'dirt-flat' or piece.type == 'rock-flat') and (!piece.special? or piece.special.type = 'grass')
+			if (piece.type == 'dirt-flat' or piece.type == 'rock-flat') and (!piece.special? or piece.special.type == 'grass')
 				actions.push new CreateFurnaceAction @
 		if piece.special? and piece.special.type == 'workbench'
 			for name, recipe of Recipe.recipes.workbench
