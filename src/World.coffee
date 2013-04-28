@@ -55,3 +55,6 @@ class World
 	destroyTree:(tree)->
 		delete @trees[tree.position]
 		@level.removeTree tree
+
+	getPossiblePlayerActions:()->
+		[]

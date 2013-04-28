@@ -18,10 +18,12 @@ class TiminingInit
 		scalingSpriteSheet = new ScalingSpriteSheet spriteSheet, scaling, 3
 		menuRenderer = new MenuRenderer context, scalingSpriteSheet, 1
 		worldRenderer = new WorldRenderer context, scalingSpriteSheet
-		game = new Game menuRenderer, worldRenderer, 40
+		ingameMenuRenderer = new IngameMenuRenderer context, scalingSpriteSheet
+		game = new Game menuRenderer, worldRenderer, ingameMenuRenderer, 40
 		canvas.addEventListener 'mousemove', game.mouseMove, false
 		canvas.addEventListener 'mouseleave', game.mouseLeave, false
 		canvas.addEventListener 'click', game.mouseClick, false
 		document.addEventListener 'keydown', game.keyDown, false
 		document.addEventListener 'keyup', game.keyUp, false
+		document.addEventListener 'keypress', game.keyPress, false
 		game.start()

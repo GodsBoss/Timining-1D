@@ -1,6 +1,7 @@
 class MenuRenderer
 	@LEFT_CHARACTER_BUTTON = true
 	@RIGHT_CHARACTER_BUTTON = false
+	@DO_NOT_CLEAR = false
 
 	constructor:(@context, @spriteSheet, @globalScalingFactor = 1)->
 		@charOneAnimation = new Animation @spriteSheet.getAnimationSprites('player-a-right', 2), 0.25
@@ -14,13 +15,14 @@ class MenuRenderer
 		@drawSingleButtonScreen 'menu-start'
 
 	drawPausedGame:()->
-		@drawSingleButtonScreen 'menu-pause'
+		@drawSingleButtonScreen 'menu-pause', MenuRenderer.DO_NOT_CLEAR
 
 	drawDead:()->
 		@drawSingleButtonScreen 'menu-again'
 
-	drawSingleButtonScreen:(spriteName)->
-		@clear()
+	drawSingleButtonScreen:(spriteName, clear = true)->
+		if clear
+			@clear()
 		center = @getCenter()
 		sprite = @spriteSheet.getNamedSprite(spriteName)
 		@context.drawImage sprite, center.x - sprite.width/2, center.y - sprite.height/2

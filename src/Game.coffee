@@ -5,9 +5,10 @@ class Game
 	@STATE_GAME_PAUSE = 4
 	@STATE_DEAD = 5
 
-	constructor:(@menuRenderer, @worldRenderer, @fps)->
+	constructor:(@menuRenderer, @worldRenderer, @ingameMenuRenderer, @fps)->
 		@state = Game.STATE_START_MENU
 		@time = 0
+		@avoidHitting = 0
 		@keysDown = {}
 
 	start:()->
@@ -17,16 +18,23 @@ class Game
 		setTimeout @loop, 1000/@fps
 		if @state is Game.STATE_GAME_RUNNING
 			@world.player.dontBeWalking()
-			if @keysDown.a and !@keysDown.d
-				@world.player.beWalkingLeft()
-			if !@keysDown.a and @keysDown.d
-				@world.player.beWalkingRight()
-			if @keysDown.s
-				hit = @world.player.hit()
-				if hit
-					@world.playerHit()
-			@world.tick 1/@fps
+			if !@ingameMenu?
+				if @keysDown.a and !@keysDown.d
+					@world.player.beWalkingLeft()
+				if !@keysDown.a and @keysDown.d
+					@world.player.beWalkingRight()
+				if @keysDown.s and @avoidHitting == 0
+					hit = @world.player.hit()
+					if hit
+						@world.playerHit()
+			if @keysDown.p
+				@state = Game.STATE_GAME_PAUSE
+			else
+				if !@ingameMenu?
+					@world.tick 1/@fps
 		@menuRenderer.pass 1/@fps
+		if @avoidHitting > 0
+			@avoidHitting = Math.max 0, @avoidHitting - 1/@fps
 		@draw()
 
 	mouseLeave:(event)=>
@@ -74,8 +82,6 @@ class Game
 			@keysDown.a = true
 		if event.keyCode == 68 # 'd'
 			@keysDown.d = true
-		if event.keyCode == 87 # 'w'
-			@keysDown.w = true
 		if event.keyCode == 83 # 's'
 			@keysDown.s = true
 
@@ -84,10 +90,27 @@ class Game
 			@keysDown.a = false
 		if event.keyCode == 68
 			@keysDown.d = false
-		if event.keyCode == 87
-			@keysDown.w = false
 		if event.keyCode == 83
 			@keysDown.s = false
+
+	keyPress:(event)=>
+		if event.keyCode == 112 # 'p'
+			if @state is Game.STATE_GAME_RUNNING or @state is Game.STATE_GAME_PAUSE
+				@state = if @state is Game.STATE_GAME_RUNNING then Game.STATE_GAME_PAUSE else Game.STATE_GAME_RUNNING
+		if event.keyCode == 119 # 'w'
+			if @state is Game.STATE_GAME_RUNNING
+				if @ingameMenu?
+					@closeIngameMenu()
+				else
+					@openIngameMenu()
+		if event.keyCode == 97 # 'a'
+			1
+		if event.keyCode == 100 # 'd'
+			1
+		if event.keyCode == 115 # 's'
+			if @ingameMenu?
+				@ingameMenu.getCurrentChoice().action()
+				@avoidHitting = 0.1
 
 	draw:()->
 		if @state is Game.STATE_START_MENU
@@ -96,6 +119,8 @@ class Game
 			@menuRenderer.drawChooseCharacter()
 		if @state is Game.STATE_GAME_RUNNING
 			@worldRenderer.draw @world
+			if @ingameMenu?
+				@ingameMenuRenderer.draw @ingameMenu
 		if @state is Game.STATE_GAME_PAUSE
 			@menuRenderer.drawPausedGame()
 		if @state is Game.STATE_DEAD
@@ -106,3 +131,14 @@ class Game
 		@world = new World player
 		level = new Level @world
 		@world.level = level # !!!
+
+	closeIngameMenu:()->
+		delete @ingameMenu
+
+	openIngameMenu:()->
+		choices = @world.getPossiblePlayerActions()
+		choices.push new CloseIngameMenuAction @
+		@ingameMenu = new IngameMenu @, choices
+
+	isInsideInGameMenu:()->
+		Game.STATE_GAME_RUNNING and @ingameMenu?
