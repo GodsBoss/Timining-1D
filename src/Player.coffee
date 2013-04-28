@@ -12,6 +12,18 @@ class Player
 
 	@materials = ['wood', 'stone', 'iron']
 
+	@miningSpeed =
+		rock: 0.2
+		coal: 0.18
+		iron: 0.14
+		gold: 0.09
+		diamond: 0.05
+
+	@toolSpeedFactor =
+		wood: 1.5
+		stone: 2.375
+		iron: 3.25
+
 	constructor:(@type)->
 		@position = 0
 		@direction = Player.RIGHT
@@ -105,21 +117,21 @@ class Player
 		@bag[item.type]++
 
 	dig:(piece, piecePosition, world)->
-		@diggingProgress += 0.333
+		progress = 0.333
+		if @currentTool?.type == 'shovel'
+			progress *= Player.toolSpeedFactor[@currentTool.material]
+		@diggingProgress += progress
 		if @diggingProgress >= 1
 			@diggingProgress = 0
 			world.level.setPiece piecePosition, 'dirt-flat'
 
 	mine:(piece, piecePosition, world)->
 		if piece.special?
-			progressValues =
-				coal: 0.18
-				iron: 0.14
-				gold: 0.09
-				diamond: 0.05
-			progress = progressValues[piece.special.type]
+			progress = Player.miningSpeed[piece.special.type]
 		else
-			progress = 0.2
+			progress = Player.miningSpeed['rock']
+		if @currentTool?.type == 'pickaxe'
+			progress *= Player.toolSpeedFactor[@currentTool.material]
 		@diggingProgress += progress
 		if @diggingProgress >= 1
 			@diggingProgress = 0
