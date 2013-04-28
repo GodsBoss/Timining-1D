@@ -24,6 +24,11 @@ class Player
 		stone: 2.375
 		iron: 3.25
 
+	@swordDamage =
+		wood: 0.55
+		stone: 0.8
+		iron: 1.05
+
 	constructor:(@type)->
 		@position = 0
 		@direction = Player.RIGHT
@@ -174,7 +179,7 @@ class Player
 		0.2 * (if @currentTool?.type == 'axe' then Player.toolSpeedFactor[@currentTool.material] else 1)
 
 	getAttackPower:()->
-		0.5
+		if @currentTool?.type == 'sword' then Player.swordDamage[@currentTool.material] else 0.4
 
 	isHit:(damage)->
 		@health -= damage
