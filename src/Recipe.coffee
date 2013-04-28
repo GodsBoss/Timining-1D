@@ -4,7 +4,7 @@ class Recipe
 		workbench:
 			furnace:
 				ingredients:
-					stone: 4
+					rock: 9
 				result:
 					value: 'furnace'
 			'wooden axe':
