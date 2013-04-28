@@ -61,6 +61,8 @@ class WorldRenderer
 		if piece.special?
 			if piece.special.type == 'grass'
 				@context.drawImage @spriteSheet.getNamedSprite('grass'), x, y
+			if piece.special.type == 'workbench'
+				@context.drawImage @spriteSheet.getNamedSprite('workbench'), x, y
 			if piece.special.type == 'bush'
 				@context.drawImage @spriteSheet.getNamedSprite('bush'+piece.special.bush.numberOfApples()), x, y
 			if piece.special.type == 'tree'

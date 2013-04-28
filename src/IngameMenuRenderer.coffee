@@ -3,6 +3,7 @@ class IngameMenuRenderer
 		close: 'exit'
 		'eat-apple': 'item-apple'
 		'plant-sapling': 'item-sapling'
+		'workbench': 'workbench'
 
 	constructor:(@context, @spriteSheet)->
 

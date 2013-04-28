@@ -60,10 +60,13 @@ class World
 
 	getPossiblePlayerActions:()->
 		actions = []
+		piece = @level.getPiece(Math.round @player.position)
 		if @player.canEat() and @player.has 'apple'
 			actions.push new PlayerEatsAppleAction @player
 		if @player.has 'sapling'
-			piece = @level.getPiece(Math.round @player.position)
 			if piece.type == 'dirt-flat' and (!piece.special? or piece.special.type == 'grass')
 				actions.push new PlantSaplingAction @
+		if @player.has 'wood', 4
+			if (piece.type == 'dirt-flat' and (!piece.special? or piece.special.type == 'grass')) or piece.type == 'rock-flat'
+				actions.push new CreateWorkbenchAction @
 		actions
