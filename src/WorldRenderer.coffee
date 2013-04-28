@@ -86,10 +86,11 @@ class WorldRenderer
 		@context.drawImage image, @context.canvas.width / 2 - image.width / 2, 61
 		if @world.player.isHitting()
 			@context.drawImage @spriteSheet.getNamedSprite('hit-effect-' + @world.player.direction), @context.canvas.width / 2 - image.width / 2, 61
-		if @world.player.currentTool?
-			tool = @world.player.currentTool
-			spriteName = [tool.type, tool.material, @world.player.direction].join '-'
-			@context.drawImage @spriteSheet.getNamedSprite(spriteName), @context.canvas.width / 2 - image.width / 2, 61
+		else
+			if @world.player.currentTool?
+				tool = @world.player.currentTool
+				spriteName = [tool.type, tool.material, @world.player.direction].join '-'
+				@context.drawImage @spriteSheet.getNamedSprite(spriteName), @context.canvas.width / 2 - image.width / 2, 61
 
 	initPlayerAnimations:()->
 		@playerAnimations =
