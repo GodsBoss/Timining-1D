@@ -64,6 +64,22 @@ class Recipe
 					diamond: 3
 				result:
 					value: 'crown'
+			'wooden sword':
+				ingredients:
+					wood: 4
+				result:
+					value: 'wood-sword'
+			'stone sword':
+				ingredients:
+					wood: 1
+					rock: 3
+				result:
+					value: 'stone-sword'
+			'iron sword':
+				ingredients:
+					iron: 5
+				result:
+					value: 'iron-sword'
 		furnace:
 			iron:
 				ingredients:

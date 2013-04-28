@@ -160,6 +160,9 @@ class Player
 	switchToPickaxe:()->
 		@switchToTool 'pickaxe'
 
+	switchToSword:()->
+		@switchToTool 'sword'
+
 	switchToTool:(tool)->
 		for material in Player.materials
 			if @bag[material+'-'+tool]

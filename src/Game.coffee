@@ -131,6 +131,8 @@ class Game
 				@world.player.switchToShovel()
 			if event.keyCode == 51 # '3'
 				@world.player.switchToPickaxe()
+			if event.keyCode == 52 # '4'
+				@world.player.switchToSword()
 
 	draw:()->
 		if @state is Game.STATE_START_MENU
