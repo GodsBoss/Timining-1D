@@ -9,6 +9,7 @@ class Player
 	@MAX_SPEED = 2
 	@HIT_RECOVER_TIME = 0.5
 	@DIGGING_PROGRESS_DECAY = 0.2
+	@ACCELERATION = 5
 
 	@materials = ['wood', 'stone', 'iron']
 
@@ -74,11 +75,11 @@ class Player
 	walk:(time, level)->
 		if @walking
 			f = if @direction is Player.LEFT then -1 else 1
-			@speed += f * time
+			@speed += f * time * Player.ACCELERATION
 			if Player.MAX_SPEED < Math.abs @speed
 				@speed = f * Player.MAX_SPEED
 		else
-			@speed *= Math.pow 0.1, time
+			@speed *= Math.pow 0.05, time
 		newPosition = @position + @speed * time
 		pieceType = level.getPiece(Math.round newPosition).type
 		if pieceType == 'dirt' or pieceType == 'rock'
