@@ -34,9 +34,10 @@ class Game
 				if !@ingameMenu?
 					@world.tick 1/@fps
 			if @world.player.isDead()
+				@worldRenderer.draw @world # Show empty heart bar
 				@state = Game.STATE_DEAD
 			if @world.player.hasCrown()
-				@worldRenderer.draw @world
+				@worldRenderer.draw @world # Hides ingame menu
 				@state = Game.STATE_VICTORY
 		@menuRenderer.pass 1/@fps
 		if @avoidHitting > 0
