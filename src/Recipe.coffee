@@ -11,17 +11,17 @@ class Recipe
 				ingredients:
 					wood: 4
 				result:
-					value: 'wooden-axe'
+					value: 'wood-axe'
 			'wooden shovel':
 				ingredients:
 					wood: 4
 				result:
-					value: 'wooden-shovel'
+					value: 'wood-shovel'
 			'wooden pickaxe':
 				ingredients:
 					wood: 4
 				result:
-					value: 'wooden-pickaxe'
+					value: 'wood-pickaxe'
 			'stone axe':
 				ingredients:
 					wood: 1
