@@ -123,6 +123,8 @@ class Player
 		if !@bag[item.type]?
 			@bag[item.type] = 0
 		@bag[item.type]++
+		if @currentTool?
+			@switchToTool @currentTool.type
 
 	dig:(piece, piecePosition, world)->
 		progress = 0.333
