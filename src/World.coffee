@@ -45,8 +45,8 @@ class World
 		for i in [1..number]
 			@createItem type, position, random
 
-	createTree:(position)->
-		@trees[position] = new Tree @, position
+	createTree:(position, size)->
+		@trees[position] = new Tree @, position, size
 
 	createBush:(position)->
 		@bushes[position] = new Bush @, position

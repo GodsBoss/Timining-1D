@@ -2,6 +2,8 @@ class Level
 	@GENERATION_SIZE = 5
 	@SPECIALS = true
 	@NO_SPECIALS = false
+	@IRON_NEEDED_FOR_DIAMOND = 4
+	@COAL_NEEDED_FOR_DIAMOND = 4
 
 	constructor:(@world)->
 		@pieces =
@@ -21,6 +23,8 @@ class Level
 		@addTree -1, Tree.MAX_SIZE
 		@addTree 2, Tree.MAX_SIZE
 		@addTree -2, Tree.MAX_SIZE
+		@coalGenerated = 0
+		@ironGenerated = 0
 
 	getPiece:(position)->
 		if !@pieces[position]?
@@ -35,9 +39,9 @@ class Level
 		step = if position > 0 then 1 else -1
 		lastDefiningPiece = if step > 0 then @rightPiece else @leftPiece
 		x = Math.random()
-		if x < 1/3
+		if x < 1/4
 			type = 'dirt-flat'
-		else if x < 2/3
+		else if x < 1/2
 			type = 'dirt'
 		else
 			type = 'rock'
@@ -62,8 +66,7 @@ class Level
 	addTree:(position, startSize = 0.00001)->
 		@pieces[position].special =
 			type: 'tree'
-			tree: @world.createTree position
-		@pieces[position].special.tree.size = startSize
+			tree: @world.createTree position, startSize
 
 	addFurnace:(position)->
 		@pieces[position].special =
@@ -85,26 +88,28 @@ class Level
 			if v < 0.2
 				piece.special =
 					type: 'tree'
-					tree: @world.createTree position
+					tree: @world.createTree position, Tree.MAX_SIZE * Math.random()
 				return
 		if piece.type == 'rock'
-			if v < 0.02
-				if 40 < Math.abs position
+			if v < 0.03
+				if @coalGenerated > Level.COAL_NEEDED_FOR_DIAMOND and @ironGenerated > Level.IRON_NEEDED_FOR_DIAMOND
 					piece.special =
 						type: 'diamond'
 				return
-			if v < 0.06
-				if 25 < Math.abs position
+			if v < 0.08
+				if 20 < Math.abs position
 					piece.special =
 						type: 'gold'
 				return
-			if v < 0.14
-				if 15 < Math.abs position
+			if v < 0.16
+				if 12 < Math.abs position
 					piece.special =
 						type: 'iron'
+					@ironGenerated++
 				return
-			if v < 0.26
-				if 10 < Math.abs position
+			if v < 0.29
+				if 8 < Math.abs position
 					piece.special =
 						type: 'coal'
+					@coalGenerated++
 				return
