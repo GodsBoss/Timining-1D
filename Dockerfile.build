@@ -1,0 +1,16 @@
+FROM alpine:3.7 AS builder
+
+ENV DIST=/root/dist
+
+RUN mkdir -p ${DIR}
+
+# Install necessary software
+RUN apk add --update-cache \
+  gimp \
+  nodejs \
+  nodejs-npm
+RUN npm install --global coffeescript@2.3.1
+
+WORKDIR ${DIR}
+
+CMD ["./build.sh"]
